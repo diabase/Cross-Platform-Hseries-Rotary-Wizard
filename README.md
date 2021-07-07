@@ -9,7 +9,7 @@ Rotary printing is printing around a cylinder, rather than on a flat bad. This o
 
 ![Unable To Display Rotary Printing Gif][RotaryGif]
 ![Unable To Display Rotary Printing Image][RotaryImage]
-![Unable To Display Unwrapping Image][RUnwrappingImage]
+![Unable To Display Unwrapping Image][UnwrappingImage]
 
 ### Unwrapping Files
 In order to slice prints that will be done on a rotary axis, we “unwrap” the original STL or gcode file so that the part is “flat” and that each layer is sized to correspond with its circumference at that Z(or R) height. See the images baloe for an example. 
@@ -21,4 +21,4 @@ In order to slice prints that will be done on a rotary axis, we “unwrap” the
 
 [RotaryGif]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/rotaryPrinting.gif
 [RotaryImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/Rotary.webp
-[unwrappingImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/RotaryUnwrappingImage.jpg
+[UnwrappingImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/UnwrappingImage.PNG
