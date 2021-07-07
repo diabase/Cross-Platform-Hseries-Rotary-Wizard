@@ -12,6 +12,7 @@ Rotary printing is printing around a cylinder, rather than on a flat bad. This o
 
 ### Unwrapping Files
 In order to slice prints that will be done on a rotary axis, we “unwrap” the original STL or gcode file so that the part is “flat” and that each layer is sized to correspond with its circumference at that Z(or R) height. See the images baloe for an example. 
+
 ## Use
 
 ## Instalation
