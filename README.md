@@ -5,7 +5,7 @@
 This is a cross platform desktop application designed to take the place of the old H series wizard. It was written in 2021 by Nick Colleran for Diabase Engineering.
 This application prepares STL files and Gcode files for rotary printing by unwrapping and scaling them. The GUI is written in NodeJS and NodeGUI, and the file processing is done with c++ plugins written for Node.
 ### Rotary Printing
-Rotary printing is printing around a cylinder, rather than on a flat bad. This offers a number of advantages, including but not limited to: less support material, stronger parts, less visable layer lines, and access to all sides of a printed part. See the gif below for an example of rotary printing.
+Rotary printing is printing around a cylinder, rather than on a flat bad. This offers a number of advantages, including but not limited to: less support material, stronger parts, less visable layer lines, and access to all sides of a printed part. See examples below.
 
 ![Unable To Display Rotary Printing Gif][logo]
 
@@ -16,4 +16,4 @@ In order to slice prints that will be done on a rotary axis, we “unwrap” the
 ## Instalation
 
 
-[logo]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/rotaryPrinting.gif "Rotary Printing Gif"
+[logo]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/rotaryPrinting.gif =250x250
