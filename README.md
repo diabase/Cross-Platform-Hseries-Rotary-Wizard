@@ -7,9 +7,7 @@ This application prepares STL files and Gcode files for rotary printing by unwra
 ### Rotary Printing
 Rotary printing is printing around a cylinder, rather than on a flat bad. This offers a number of advantages, including but not limited to: less support material, stronger parts, less visable layer lines, and access to all sides of a printed part. See examples below.
 
-![Unable To Display Rotary Printing Gif][logo]
-
-![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)
+![Unable To Display Rotary Printing Gif][RotaryGif]
 
 ### Unwrapping Files
 In order to slice prints that will be done on a rotary axis, we “unwrap” the original STL or gcode file so that the part is “flat” and that each layer is sized to correspond with its circumference at that Z(or R) height. See the images baloe for an example. 
@@ -18,4 +16,4 @@ In order to slice prints that will be done on a rotary axis, we “unwrap” the
 ## Instalation
 
 
-[logo]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/rotaryPrinting.gif =250x250
+[RotaryGif]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/rotaryPrinting.gif
