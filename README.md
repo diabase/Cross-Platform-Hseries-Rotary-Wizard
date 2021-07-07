@@ -15,4 +15,4 @@ In order to slice prints that will be done on a rotary axis, we “unwrap” the
 ## Instalation
 
 
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+[logo]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/rotaryPrinting.gif "Rotary Printing Gif"
