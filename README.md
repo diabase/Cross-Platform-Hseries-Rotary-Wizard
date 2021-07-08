@@ -21,6 +21,7 @@ Instructions:
 
 1: Navigate to the STL section of the desktop wizard, and upload an STL to prepare it for slicing by clicking "Upload .STL File".
 
+![Unable To Display Stl Page Image][STLPage]
 ![Unable To Display Upload Stl Image][UploadSTL]
 
 2: Once you have uploaded the file and chosen your desired stretch factor(default 1), press "Process Selected STL". You will get a message telling you where to find the processed .STL file. 
@@ -40,3 +41,4 @@ Instructions:
 [UnwrappingImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/UnwrappingImage.PNG
 [UploadSTL]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/UploadSTL.PNG
 [ProcessStl]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/ProcessSTL.PNG
+[STLPage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/STLButton.PNG
