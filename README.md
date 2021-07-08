@@ -33,8 +33,10 @@ Instructions:
 3: Navigate to the Gcode section of the desktop wizard, and upload the resulting gcode file.
 
 ![Unable To Display Gcode Page Image][GcodePage]
+![Unable To Display Gcode Upload Image][UploadGcode]
 
 4: Press "Process Selected Gcode", and you will get a message telling you where the resulting Gcode file can be found. It is ready for rotary printing on an H-series machine. 
+![Unable To Display Gcode Process Image][ProcessGcode]
 ## Instalation
 
 
@@ -45,3 +47,5 @@ Instructions:
 [ProcessStl]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/ProcessSTL.PNG
 [STLPage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/STLButton.PNG
 [GcodePage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/GCODEButton.PNG
+[UploadGcode]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/GcodeUpload.PNG
+[ProcessGcode]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/GcodeProcess.PNG
