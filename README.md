@@ -30,9 +30,11 @@ Instructions:
 
 2: Upload the output STL to either simplify 3d or cura. Make sure the appropriate post-processing script is applied to the slicing software. Slice the file, and the post-processing script should be automatically used, resulting in a gcode file.
 
-3: Navigate to the Gcode section of the desktop wizard, and upload the resulting gcode file to make the final transformation.
+3: Navigate to the Gcode section of the desktop wizard, and upload the resulting gcode file.
 
-4: You will get a message telling you where the resulting Gcode file can be found. It is ready for rotary printing on an H-series machine. 
+![Unable To Display Gcode Page Image][GcodePage]
+
+4: Press "Process Selected Gcode", and you will get a message telling you where the resulting Gcode file can be found. It is ready for rotary printing on an H-series machine. 
 ## Instalation
 
 
@@ -42,3 +44,4 @@ Instructions:
 [UploadSTL]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/UploadSTL.PNG
 [ProcessStl]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/ProcessSTL.PNG
 [STLPage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/STLButton.PNG
+[GcodePage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/GCODEButton.PNG
