@@ -21,9 +21,11 @@ Instructions:
 
 1: Navigate to the STL section of the desktop wizard, and upload an STL to prepare it for slicing by clicking "Upload .STL File".
 
-![Unable To Display Unwrapping Image][UploadSTL]
+![Unable To Display Upload Stl Image][UploadSTL]
 
 2: Once you have uploaded the file and chosen your desired stretch factor(default 1), press "Process Selected STL". You will get a message telling you where to find the processed .STL file. 
+
+![Unable To Display Process Stl Image][ProcessSTL]
 
 2: Upload the output STL to either simplify 3d or cura. Make sure the appropriate post-processing script is applied to the slicing software. Slice the file, and the post-processing script should be automatically used, resulting in a gcode file.
 
@@ -37,3 +39,4 @@ Instructions:
 [RotaryImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/Rotary.webp
 [UnwrappingImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/UnwrappingImage.PNG
 [UploadSTL]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/UploadSTL.PNG
+[ProcessStl]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/ProcessSTL.PNG
