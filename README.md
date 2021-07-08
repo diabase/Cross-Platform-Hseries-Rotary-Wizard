@@ -18,13 +18,16 @@ To slice prints that will be done on a rotary axis, we “unwrap” the original
 ## Use
 This should be used in tandem with the H-series cura or simplify 3d post-processing scripts. 
 Instructions:
-1: Navigate to the STL section of the desktop wizard, and upload an STL to prepare it for slicing.
+
+1: Navigate to the STL section of the desktop wizard, and upload an STL to prepare it for slicing by clicking "Upload .STL File".
+
+2: Once you have uploaded the file and chosen your desired stretch factor(default 1), press "Process Selected STL". You will get a message telling you where to find the processed .STL file. 
 
 2: Upload the output STL to either simplify 3d or cura. Make sure the appropriate post-processing script is applied to the slicing software. Slice the file, and the post-processing script should be automatically used, resulting in a gcode file.
 
 3: Navigate to the Gcode section of the desktop wizard, and upload the resulting gcode file to make the final transformation.
 
-4: The resulting Gcode file is ready for rotary printing on an H-series machine. 
+4: You will get a message telling you where the resulting Gcode file can be found. It is ready for rotary printing on an H-series machine. 
 ## Instalation
 
 
