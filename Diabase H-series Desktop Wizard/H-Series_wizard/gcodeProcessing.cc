@@ -99,8 +99,10 @@ std::string scaleY(std::string line, double radius){
     std::string num = "";
     bool Yflag = false;
     bool Negflag = false;
-    if (line.find("G28") != std::string::npos || line.find("G32") != std::string::npos) {
-        return "";
+    if (line.find("G28") != std::string::npos){
+        return "G28 A";
+    }else if (line.find("G32") != std::string::npos){
+        return "G29 S1";
     }
         for (int i = 0; i < line.length(); i++) {
             if(Yflag){
