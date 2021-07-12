@@ -44,7 +44,7 @@ v8::String::Utf8Value utf8Infilename(isolate, info[0]);
 std::string infilename(*utf8Infilename);
 v8::String::Utf8Value utf8Outfilename(isolate, info[1]);
 std::string outfilename(*utf8Outfilename);
-int radius = info[2]->NumberValue(context).FromJust();
+double radius = info[2]->NumberValue(context).FromJust();
 
 try
 	{

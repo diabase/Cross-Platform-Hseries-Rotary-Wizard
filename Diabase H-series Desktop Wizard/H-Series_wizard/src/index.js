@@ -354,8 +354,9 @@ let backToStl = false;
     let correctedPathString = pathString.split("/").join("\\");
     let outputLocation = getOutputLoaction(correctedPathString, "gcode");
     let isnum = parseFloat(radiusInput.text().match(/^-?\d*(\.\d+)?$/))>0;
-    if(pathString = ''){
+    if(pathString != ''){
       if(isnum){
+          console.log(radiusInput.text());
           if(gcodeProcessing.gcodeProcessing(correctedPathString, outputLocation, radiusInput.text())){
             outputMessage.setWindowTitle('Success');
             outputMessage.setText('New .gcode file created at '+outputLocation);
