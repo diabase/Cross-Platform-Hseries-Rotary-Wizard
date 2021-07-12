@@ -302,7 +302,7 @@ let backToStl = false;
       location+="x stretch factor).stl";
     }
     else if(type == "gcode"){
-      location+=stretchInput.text();
+      location+=radiusInput.text();
       location+="mm Radius).gcode";
     }
     return location;
@@ -353,8 +353,8 @@ let backToStl = false;
     const outputMessage = new QMessageBox();
     let correctedPathString = pathString.split("/").join("\\");
     let outputLocation = getOutputLoaction(correctedPathString, "gcode");
-    let isnum = /^\d+$/.test(radiusInput.text());
-    if(pathString != ''){
+    let isnum = parseFloat(radiusInput.text().match(/^-?\d*(\.\d+)?$/))>0;
+    if(pathString = ''){
       if(isnum){
           if(gcodeProcessing.gcodeProcessing(correctedPathString, outputLocation, radiusInput.text())){
             outputMessage.setWindowTitle('Success');
