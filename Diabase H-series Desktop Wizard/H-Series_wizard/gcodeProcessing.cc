@@ -24,7 +24,7 @@ This wizard can modify gcode files to prepare them for rotary printing on a Diab
 #include <fstream>
 
 void write_gcode(std::string outFileName,std::string inFileName, double radius);
-std::string scaleY(std::string line, double radius);
+std::string scaleY(std::string line, double radius, double currentLayerHeight, double firstLayerHeight);
 
 
 /* This is the main gcode processing method. It gets called with:
@@ -74,12 +74,38 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
     std::ofstream outFile;
 	outFile.open((outFileName).c_str(), std::ios::out | std::ofstream::trunc);
 	outFile<< ";Processed with Diabase Rotary Printing Wizard.\n";
-	
 
     std::string currentLine;
 
+    double mainLayerHeight;
+    double firstLayerHeight;
+    double currentLayerHeight = 0;
+
     while (std::getline(inFile, currentLine)) {
-        outFile<<scaleY(currentLine, radius)<<"\n";
+        if (currentLine.find(";Layer height: ")!= std::string::npos){
+            std::size_t posOfLayerHeight = currentLine.find(";Layer height: ");
+            std::string layerHeightString = currentLine.substr(posOfLayerHeight + 15);
+            mainLayerHeight = std::stod(layerHeightString);
+            break;
+        }
+    }
+    while (std::getline(inFile, currentLine)) {
+        if (currentLine.find(";MINZ:")!= std::string::npos){
+            std::size_t posOfFirstLayerHeight = currentLine.find(";MINZ:");
+            std::string firstLayerHeightString = currentLine.substr(posOfFirstLayerHeight + 6);
+            firstLayerHeight = std::stod(firstLayerHeightString);
+            break;
+        }
+    }
+
+    while (std::getline(inFile, currentLine)) {
+        if (currentLine.find(";LAYER:0") != std::string::npos){
+            currentLayerHeight += firstLayerHeight;
+        }
+        else if (currentLine.find(";LAYER:") != std::string::npos){
+            currentLayerHeight += mainLayerHeight;
+        }
+        outFile<<scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight)<<"\n";
     }
     outFile<< ";File Complete\n";
 
@@ -91,9 +117,10 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
 This is the method that can find the needed changes within a single gcode line.
 It returns the changed line to be added to the output file.
 */
-std::string scaleY(std::string line, double radius){
+std::string scaleY(std::string line, double radius, double currentLayerHeight, double firstLayerHeight){
     
-    double factor = 180/(radius*3.14159265);
+    double zFactor = radius+currentLayerHeight-firstLayerHeight;
+    double scaleFactor = 180/(zFactor*3.14159265);
     line = line + " ";
     std::string output = line;
     std::string num = "";
@@ -115,7 +142,7 @@ std::string scaleY(std::string line, double radius){
                         Yflag = false;
                         if(num.length() > 0){
                             float number = std::stof(num);
-                            number = number * factor;
+                            number = number * scaleFactor;
                             std::ostringstream ss;
                             ss << number;
                             std::string s(ss.str());
@@ -135,6 +162,7 @@ std::string scaleY(std::string line, double radius){
 
 return output;
 }
+
 
 /*
 This exports the add method to be used as "gcodeProcessing".
