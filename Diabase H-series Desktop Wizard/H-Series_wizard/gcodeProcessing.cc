@@ -82,13 +82,13 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
     double currentLayerHeight = 0;
 
     while (std::getline(inFile, currentLine)) {
-        if (currentLine.find(";Layer height: ")!= std::string::npos){
+        if (currentLine.find(";Layer height: ")!= std::string::npos){ // Cura Check for main layer height
             std::size_t posOfLayerHeight = currentLine.find(";Layer height: ");
             std::string layerHeightString = currentLine.substr(posOfLayerHeight + 15);
             mainLayerHeight = std::stod(layerHeightString);
             break;
         }
-        else if (currentLine.find(";   layerHeight,")!= std::string::npos){
+        else if (currentLine.find(";   layerHeight,")!= std::string::npos){ // Simplify 3d Check for main layer height
             std::size_t posOfLayerHeight = currentLine.find(";   layerHeight,");
             std::string layerHeightString = currentLine.substr(posOfLayerHeight + 16);
             mainLayerHeight = std::stod(layerHeightString);
@@ -96,13 +96,13 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
         }
     }
     while (std::getline(inFile, currentLine)) {
-        if (currentLine.find(";MINZ:")!= std::string::npos){
+        if (currentLine.find(";MINZ:")!= std::string::npos){ // Cura Check for first layer height
             std::size_t posOfFirstLayerHeight = currentLine.find(";MINZ:");
             std::string firstLayerHeightString = currentLine.substr(posOfFirstLayerHeight + 6);
             firstLayerHeight = std::stod(firstLayerHeightString);
             break;
         }
-        if (currentLine.find(";   firstLayerHeightPercentage,")!= std::string::npos){
+        if (currentLine.find(";   firstLayerHeightPercentage,")!= std::string::npos){ // Simplify 3d Check for first layer height
             std::size_t posOfFirstLayerHeight = currentLine.find(";   firstLayerHeightPercentage,");
             std::string firstLayerHeightString = currentLine.substr(posOfFirstLayerHeight + 31);
             firstLayerHeightString.insert(0, ".");
@@ -111,11 +111,14 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
             break;
         }
     }
+
+    // Print error info to gcode file
     if(firstLayerHeight == 0){
         outFile<< ";Could not find/calculate first layer height from Gcode. Process Failed.\n";
     }else if(mainLayerHeight == 0){
         outFile<< ";Could not find/calculate main layer height from Gcode. Process Failed.\n";
     }else{
+        //Print found information to gcode file
         outFile<< ";Found Layer Height: ";
         outFile<< mainLayerHeight;
         outFile<< "\n";
@@ -124,10 +127,10 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
         outFile<< "\n\n";
 
         while (std::getline(inFile, currentLine)) {
-            if (currentLine.find(";LAYER:0") != std::string::npos){
+            if (currentLine.find(";LAYER:0") != std::string::npos){ //Once the first layer is found, add the first layer height to the current z height
                 currentLayerHeight += firstLayerHeight;
             }
-            else if (currentLine.find(";LAYER:") != std::string::npos){
+            else if (currentLine.find(";LAYER:") != std::string::npos){ //For each layer change after the initial layer, add the uniform layer height to the current z height
                 currentLayerHeight += mainLayerHeight;
             }
             outFile<<scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight)<<"\n";
