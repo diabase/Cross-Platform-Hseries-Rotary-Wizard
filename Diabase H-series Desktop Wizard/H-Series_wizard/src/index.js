@@ -292,18 +292,14 @@ let backToStl = false;
   //Takes in the location of a file, and creates a new location path for the output
   function getOutputLoaction(inputString, type){
     let lastSlash = inputString.lastIndexOf("\\");
-    let location = inputString.slice(0, lastSlash);
-    let fileName = inputString.slice(lastSlash + 1, inputString.length-4);
-    location +="\\Diabase_Rotary_Printing_";
-    location+=fileName;
-    location+="(";
+    let location = inputString.slice(0, lastSlash) + "\\";
     if(type == "stl"){
-      location+=stretchInput.text();
-      location+="x stretch factor).stl";
+      location+= inputString.slice(lastSlash + 1, inputString.length-4);
+      location+="_unwrapped.stl";
     }
     else if(type == "gcode"){
-      location+=radiusInput.text();
-      location+="mm Radius).gcode";
+      location+= inputString.slice(lastSlash + 1, inputString.length-6);
+      location+="_readytoprint.gcode";
     }
     return location;
   }
