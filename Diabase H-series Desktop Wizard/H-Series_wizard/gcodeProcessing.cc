@@ -48,7 +48,6 @@ double radius = info[2]->NumberValue(context).FromJust();
 
 try
 	{
-		
 		write_gcode(outfilename, infilename, radius);
 		info.GetReturnValue().Set(true);
 	}
@@ -59,15 +58,12 @@ try
 	}
 }
 
-
 /*
 This is the method that writes to the Gcode File.
 It is called within the Add method.
 */
 void write_gcode(std::string outFileName,std::string inFileName, double radius)
 {	
-
-    
 	std::ifstream inFile;
     inFile.open((inFileName).c_str(), std::ios::in);
 
@@ -77,9 +73,7 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
 
     std::string currentLine;
 
-    double mainLayerHeight = 0;
-    double firstLayerHeight = 0;
-    double currentLayerHeight = 0;
+    double mainLayerHeight = 0, firstLayerHeight = 0, currentLayerHeight = 0;
 
     while (std::getline(inFile, currentLine)) {
         if (currentLine.find(";Layer height: ")!= std::string::npos){ // Cura Check for main layer height
@@ -102,23 +96,21 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
             firstLayerHeight = std::stod(firstLayerHeightString);
             break;
         }
-        if (currentLine.find(";   firstLayerHeightPercentage,")!= std::string::npos){ // Simplify 3d Check for first layer height
-            std::size_t posOfFirstLayerHeight = currentLine.find(";   firstLayerHeightPercentage,");
-            std::string firstLayerHeightString = currentLine.substr(posOfFirstLayerHeight + 31);
-            firstLayerHeightString.insert(0, ".");
+        if (currentLine.find("; layer 1, Z = ")!= std::string::npos){ // Simplify 3d Check for first layer height
+            std::size_t posOfFirstLayerHeight = currentLine.find("; layer 1, Z = ");
+            std::string firstLayerHeightString = currentLine.substr(posOfFirstLayerHeight + 15);
             firstLayerHeight = std::stod(firstLayerHeightString);
-            firstLayerHeight *= mainLayerHeight;
             break;
         }
     }
 
-    // Print error info to gcode file
+    // Print error info to gcode file if needed info is not found
     if(firstLayerHeight == 0){
         outFile<< ";Could not find/calculate first layer height from Gcode. Process Failed.\n";
     }else if(mainLayerHeight == 0){
         outFile<< ";Could not find/calculate main layer height from Gcode. Process Failed.\n";
     }else{
-        //Print found information to gcode file
+        //Print found information to gcode file if all is well
         outFile<< ";Found Layer Height: ";
         outFile<< mainLayerHeight;
         outFile<< "\n";
@@ -191,7 +183,6 @@ std::string scaleY(std::string line, double radius, double currentLayerHeight, d
 
 return output;
 }
-
 
 /*
 This exports the add method to be used as "gcodeProcessing".
