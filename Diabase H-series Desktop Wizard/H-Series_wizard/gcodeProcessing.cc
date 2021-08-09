@@ -23,6 +23,8 @@ This wizard can modify gcode files to prepare them for rotary printing on a Diab
 #include <stdint.h>
 #include <fstream>
 
+# define M_PI           3.14159265358979323846
+
 void write_gcode(std::string outFileName,std::string inFileName, double radius);
 std::string scaleY(std::string line, double radius, double currentLayerHeight, double firstLayerHeight);
 
@@ -89,17 +91,20 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
             break;
         }
     }
+
     while (std::getline(inFile, currentLine)) {
         if (currentLine.find(";MINZ:")!= std::string::npos){ // Cura Check for first layer height
             std::size_t posOfFirstLayerHeight = currentLine.find(";MINZ:");
             std::string firstLayerHeightString = currentLine.substr(posOfFirstLayerHeight + 6);
             firstLayerHeight = std::stod(firstLayerHeightString);
+            currentLayerHeight = firstLayerHeight-mainLayerHeight;
             break;
         }
-        if (currentLine.find("; layer 1, Z = ")!= std::string::npos){ // Simplify 3d Check for first layer height
+        else if (currentLine.find("; layer")!= std::string::npos){ // Simplify 3d Check for first layer height
             std::size_t posOfFirstLayerHeight = currentLine.find("; layer 1, Z = ");
             std::string firstLayerHeightString = currentLine.substr(posOfFirstLayerHeight + 15);
             firstLayerHeight = std::stod(firstLayerHeightString);
+            currentLayerHeight = firstLayerHeight;
             break;
         }
     }
@@ -119,10 +124,10 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
         outFile<< "\n\n";
 
         while (std::getline(inFile, currentLine)) {
-            if (currentLine.find(";LAYER:0") != std::string::npos){ //Once the first layer is found, add the first layer height to the current z height
-                currentLayerHeight += firstLayerHeight;
+            if (currentLine.find(";LAYER:") != std::string::npos){
+                currentLayerHeight += mainLayerHeight;
             }
-            else if (currentLine.find(";LAYER:") != std::string::npos){ //For each layer change after the initial layer, add the uniform layer height to the current z height
+            else if (currentLine.find("; layer ") != std::string::npos){ //For each layer change after the initial layer, add the uniform layer height to the current z height
                 currentLayerHeight += mainLayerHeight;
             }
             outFile<<scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight)<<"\n";
@@ -141,7 +146,8 @@ It returns the changed line to be added to the output file.
 std::string scaleY(std::string line, double radius, double currentLayerHeight, double firstLayerHeight){
     
     double zFactor = radius+currentLayerHeight-firstLayerHeight;
-    double scaleFactor = 180/(zFactor*3.14159265);
+    double scaleFactor = 180/(zFactor*M_PI);
+    double testNumber;
     line = line + " ";
     std::string output = line;
     std::string num = "";
@@ -163,15 +169,16 @@ std::string scaleY(std::string line, double radius, double currentLayerHeight, d
                         Yflag = false;
                         if(num.length() > 0){
                             float number = std::stof(num);
+                            testNumber = number;
                             number = number * scaleFactor;
                             std::ostringstream ss;
                             ss << number;
                             std::string s(ss.str());
                             if(Negflag){
-                                output = output.substr(0,i-num.length()-2) + "A-" + s + output.substr(i,output.length());
+                                output = output.substr(0,i-num.length()-2) + "A-" + s + output.substr(i,output.length()) + "    ; " + std::to_string(testNumber) + "180/([" + std::to_string(radius) +" + "+std::to_string(currentLayerHeight)+" - "+std::to_string(firstLayerHeight) + "] * pi)" ;
                                 Negflag = false; 
                             }else{
-                                output = output.substr(0,i-num.length()-1) + "A" + s + output.substr(i,output.length());
+                                output = output.substr(0,i-num.length()-1) + "A" + s + output.substr(i,output.length()) + "    ; 180/([" + std::to_string(radius) +" + "+std::to_string(currentLayerHeight)+" - "+std::to_string(firstLayerHeight) + "] * pi)" ;
                             }
                         }
                     }
