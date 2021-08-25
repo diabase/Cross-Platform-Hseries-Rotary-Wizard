@@ -130,7 +130,7 @@ void write_gcode(std::string outFileName,std::string inFileName, double radius)
             else if (currentLine.find("; layer ") != std::string::npos){ //For each layer change after the initial layer, add the uniform layer height to the current z height
                 currentLayerHeight += mainLayerHeight;
             }
-            outFile<<scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight)<<"\n";
+            outFile<<scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight)<<"\n"; // MACOS: outFile<<scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight);
         }
     }
     outFile<< ";File Complete\n";

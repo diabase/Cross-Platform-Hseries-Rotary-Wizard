@@ -291,8 +291,8 @@ let backToStl = false;
 
   //Takes in the location of a file, and creates a new location path for the output
   function getOutputLoaction(inputString, type){
-    let lastSlash = inputString.lastIndexOf("\\");
-    let location = inputString.slice(0, lastSlash) + "\\";
+    let lastSlash = inputString.lastIndexOf("\\"); //MACOS: let lastSlash = inputString.lastIndexOf("/")
+    let location = inputString.slice(0, lastSlash) + "\\"; //MACOS: let location = inputString.slice(0, lastSlash) + "/";
     if(type == "stl"){
       location+= inputString.slice(lastSlash + 1, inputString.length-4);
       location+="_unwrapped.stl";
@@ -310,7 +310,7 @@ let backToStl = false;
   */
   function outputNewStl(pathString){
     const outputMessage = new QMessageBox();
-    let correctedPathString = pathString.split("/").join("\\");
+    let correctedPathString = pathString.split("/").join("\\"); //MACOS let correctedPathString = pathString.split("/").join("/");
     let outputLocation = getOutputLoaction(correctedPathString, "stl");
     let isnum = /^\d+$/.test(stretchInput.text());
     if(pathString != ''){
@@ -347,7 +347,7 @@ let backToStl = false;
   */
   function outputNewGcode(pathString){
     const outputMessage = new QMessageBox();
-    let correctedPathString = pathString.split("/").join("\\");
+    let correctedPathString = pathString.split("/").join("\\"); // MACOS: let correctedPathString = pathString.split("/").join("/");
     let outputLocation = getOutputLoaction(correctedPathString, "gcode");
     let isnum = parseFloat(radiusInput.text().match(/^-?\d*(\.\d+)?$/))>0;
     if(pathString != ''){
