@@ -5,7 +5,7 @@
 This is a cross-platform desktop application designed to take the place of the old H series wizard. It was written in 2021 by Nick Colleran for Diabase Engineering.
 This application prepares STL files and Gcode files for rotary printing by unwrapping and scaling them. The GUI is written in NodeJS and NodeGUI, and the file processing is done with c++ plugins written for Node.
 ### Rotary Printing
-Rotary printing is printing around a cylinder, rather than on a flat bed. This offers several advantages, including but not limited to: less support material, stronger parts, less visible layer lines, and access to all sides of a printed part. See examples below.
+Rotary printing is printing around a cylinder, rather than on a flat printing surface. This offers several advantages, including but not limited to: less support material, stronger parts, less visible layer lines, and access to all sides of a printed part. See examples below.
 
 ![Unable To Display Rotary Printing Gif][RotaryGif]
 ![Unable To Display Rotary Printing Image][RotaryImage]
@@ -37,8 +37,10 @@ Instructions:
 
 4: Press "Process Selected Gcode", and you will get a message telling you where the resulting Gcode file can be found. It is ready for rotary printing on an H-series machine. 
 ![Unable To Display Gcode Process Image][ProcessGcode]
-## Instalation
+## Installation
 
+## Windows vs macOS
+Although both the Windows and macOS builds are available to download, the source code in the repository is for the Windows version. They are extremely similar, and for anyone looking for the MacOS source code, only minor changes are required. First, the binding.gyp file has changes to include acceptable versions of macOS. There is a text file in the repository titled "Binding.gyp for MacOS" that reflects these changes. The only other changes are a few lines in index.js that have to do with file path differences between operating systems. In Windows, a "\" is used, and macOS uses a "/". These can be found on lines 294, 295, 313, and 350. After each of these lines is a comment including the changes for macOS. 
 
 [RotaryGif]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/rotaryPrinting.gif
 [RotaryImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/Rotary.webp
