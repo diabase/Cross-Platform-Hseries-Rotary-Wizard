@@ -175,7 +175,7 @@ let backToStl = false;
     #buttonRowButton{
       margin-right: 5px;
       margin-left: 5px;
-      font-size: 16px;
+      font-size: 14px;
       width: 185px;
       height: 50px;
     }
