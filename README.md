@@ -42,11 +42,17 @@ Instructions:
 Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release. Navigate insode the unzipped folder, and locate qode.exe. This is the application excecutable, and running this will open the wizard. 
 ### macOS
 1: Download "DiabaseHseriesMacWizard.app.zip" from the latest release. When you open the application, you may get a popup window stating that the application can not be opened because the developer can not be verified. If this is the case, proceed to step two.
+
 2: A change in security settings will be needed. On the popup, locate and press the question mark icon on the top right.
+
 3: A new popup will appear. Find the link under step one that reads "Open the General pane for me", and click it. It will open a settings window. 
+
 4: Locate and press the padloc icon on the bottom left of the settings window. 
+
 5: Locate the text that says the app was blocked because of an unidentified developer. Click the button next to it that says "Open Anyway".
+
 6: On the resulting prompt, press "Open"
+
 7: The app should launch. From here, go back to the settings tab, and press the unlocked padlock. It should lock, saving your selection. This should allow continued use of the app with no issue. 
 
 ## Windows vs macOS
