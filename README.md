@@ -39,7 +39,7 @@ Instructions:
 ![Unable To Display Gcode Process Image][ProcessGcode]
 ## Installation
 ### Windows
-
+Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release. Navigate insode the unzipped folder, and locate qode.exe. This is the application excecutable, and running this will open the wizard. 
 ### macOS
 
 ## Windows vs macOS
