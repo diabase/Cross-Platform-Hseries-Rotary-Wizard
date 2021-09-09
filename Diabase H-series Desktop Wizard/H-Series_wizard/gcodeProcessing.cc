@@ -1,13 +1,22 @@
 /*
-Diabase Engineering Rotary Printing Wizard gcodeProcessing.cc
-By Nick Colleran
+Diabase H-Series Cross-Platform Wizard
+Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
+    This file is part of Diabase H-Series Cross-Platform Wizard.
 
-This code was written for Diabase Engineering.
-It uses c++ code to create a NodeJS plugin used to process gcode files. 
-All code used is done so with permission.
+    Diabase H-Series Cross-Platform Wizard is free software: you can 
+    redistribute it and/or modify it under the terms of the GNU Affero
+    General Public License as published by the Free Software Foundation,
+    either version 3 of the License, or (at your option) any later version.
 
-This wizard can modify gcode files to prepare them for rotary printing on a Diabase Engineering Machine.
-*/
+    Diabase H-Series Cross-Platform Wizard is distributed in the hope 
+    that it will be useful, but WITHOUT ANY WARRANTY; without even the
+    implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Diabase H-Series Cross-Platform Wizard.  If not, see
+    <https://www.gnu.org/licenses/>.
+ */
 
 #include <nan.h>//This include might show a compiler error, but that is a mistake, and should not effect anything. Do not remove.
 

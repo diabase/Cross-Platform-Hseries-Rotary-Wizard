@@ -1,14 +1,22 @@
 /*
-Diabase Engineering Rotary Printing Wizard index.js
-By Nick Colleran
+Diabase H-Series Cross-Platform Wizard
+Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
+    This file is part of Diabase H-Series Cross-Platform Wizard.
 
-This code was written for Diabase Engineering in 2021.
-It uses NodeJS and NodeGUI to create the GUI.
-Two c++ files were written to be included as addons - fileProcessing.cc and gcodeProcessing.cc
-All photos used are approved by the rightful owners at Diabase Engineering.
+    Diabase H-Series Cross-Platform Wizard is free software: you can 
+    redistribute it and/or modify it under the terms of the GNU Affero
+    General Public License as published by the Free Software Foundation,
+    either version 3 of the License, or (at your option) any later version.
 
-This wizard can modify stl or gcode files to prepare them for rotary printing on a Diabase Engineering Machine.
-*/
+    Diabase H-Series Cross-Platform Wizard is distributed in the hope 
+    that it will be useful, but WITHOUT ANY WARRANTY; without even the
+    implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Diabase H-Series Cross-Platform Wizard.  If not, see
+    <https://www.gnu.org/licenses/>.
+ */
 
 // Imports
 import{
