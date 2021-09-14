@@ -37,18 +37,20 @@ const diabaseBannerImage = new QPixmap();
 diabaseBannerImage.load(absoulteImagePath);
 
 // Messages
-const welcomeMessage = "Welcome to the Diabase Engineering Rotary Printing Wizard written by Nick Colleran.\n\
-This application is designed to process STL and G-Code files, and prepare them for rotary printing.\n\
-See the buttons below to navigate to our website or our github\n\
-or to continue with STL or G-Code processing."
-const stlInstructionsText = "This functionality prepares a .stl file for rotary printing.\n\
+const homeWelcomeMessage = 'Welcome to the Diabsae Engineering Wizard.\n\
+This Application '
+const rotaryWelcomeMessage = 'Welcome to the rotary Printing section of the wizard\n\
+This section of the application is designed to process STL and G-Code files,\n\
+and prepare them for rotary printing.\n\
+See the buttons below to navigate to our our github, or to continue with STL or G-Code processing.'
+const stlInstructionsText = 'This functionality prepares a .stl file for rotary printing.\n\
 Click the upload button below to be directed to choose a .stl file. \n\
 If you would like to select a different file, click the upload button again.\n\
-Once the file is processed, a new .stl file will be created in the same location as the uploaded .stl file."
-const gcodeInstructionsText = "This functionality prepares a Gcode file for rotary printing.\n\
+Once the file is processed, a new .stl file will be created in the same location as the uploaded .stl file.'
+const gcodeInstructionsText = 'This functionality prepares a Gcode file for rotary printing.\n\
 Click the upload button below to be directed to choose a Gcode file. \n\
 If you would like to select a different file, click the upload button again.\n\
-Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file."
+Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'
 
 //Global Variables
 let canContinue = false;
@@ -57,16 +59,28 @@ let backToStl = false;
 // WELCOME PAGE WIDGETS START
 
   //Buttons
-  const websiteButton = createButton("buttonRowButton", "What\'s Rotary Printing?");
+  const websiteButton = createButton('buttonRowButton', 'What\'s Rotary Printing?');
   const gitButton = createButton('buttonRowButton', 'Diabase Github');
+  const rotaryButton = createButton('buttonRowButton', 'Rotary Printing');
+
+  //Root
+  const welcomeButtonRow = [gitButton, websiteButton, rotaryButton];
+  const welcomeHeaderRow = [createLabel('intro', homeWelcomeMessage)];
+
+// WELCOME PAGE WIDGETS END
+//
+//
+// ROTARY PAGE WIDGETS START
+
+  //Buttons
   const continueToStlProcessing = createButton('buttonRowButton','STL processing');
   const continueToGcodeProcessing = createButton('buttonRowButton', 'G-Code processing');
 
   //Root
-  const welcomeButtonRow = [websiteButton, gitButton, continueToStlProcessing, continueToGcodeProcessing];
-  const welcomeHeaderRow = [createLabel("intro", welcomeMessage)];
+  const rotaryButtonRow = [continueToStlProcessing, continueToGcodeProcessing];
+  const rotaryHeaderRow = [createLabel('intro', rotaryWelcomeMessage)];
 
-// WELCOME PAGE WIDGETS END
+// ROTARY PAGE WIDGETS END
 //
 //
 // STL PAGE WIDGETS START
@@ -104,8 +118,8 @@ let backToStl = false;
   stlFileDialog.setNameFilter('(*.stl)');
 
   //Root
-  [uploadButtonStlPage,createLabel('selectedFile',"Selected File:"),selectedStlFileName].forEach(widget => uploadRowStlPageLayout.addWidget(widget));
-  [createLabel('enterStretchLabel',"Stretch Factor(1 is unchanged):"), stretchInput].forEach(widget => stretchRowStlPageLayout.addWidget(widget));
+  [uploadButtonStlPage,createLabel('selectedFile','Selected File:'),selectedStlFileName].forEach(widget => uploadRowStlPageLayout.addWidget(widget));
+  [createLabel('enterStretchLabel','Stretch Factor(1 is unchanged):'), stretchInput].forEach(widget => stretchRowStlPageLayout.addWidget(widget));
   const stlButtonRow = [backButtonStlPage,processStlButton,stlToGcode];
   const stlHeaderRow = [createLabel('instructions', stlInstructionsText), uploadRowStlPage, stretchRowStlPage];
 
@@ -144,8 +158,8 @@ let backToStl = false;
   GcodeFileDialog.setNameFilter('(*.gcode)');
 
   //Root
-  [uploadButtonGcodePage,createLabel('selectedFile',"Selected File:"),selectedGcodeFileName].forEach(widget => uploadRowGcodePageLayout.addWidget(widget));
-  [createLabel('enterRadiusLabel',"Inner Radius in mm:"), radiusInput].forEach(widget => radiusRowGcodePageLayout.addWidget(widget));
+  [uploadButtonGcodePage,createLabel('selectedFile','Selected File:'),selectedGcodeFileName].forEach(widget => uploadRowGcodePageLayout.addWidget(widget));
+  [createLabel('enterRadiusLabel','Inner Radius in mm:'), radiusInput].forEach(widget => radiusRowGcodePageLayout.addWidget(widget));
   const gcodeButtonRow = [backButtonGcodePage,processGcodeButton];
   const gcodeHeaderRow = [createLabel('instructions',gcodeInstructionsText), uploadRowGcodePage, radiusRowGcodePage];
 
@@ -225,12 +239,13 @@ let backToStl = false;
 //
 //
 // STARTUP CODE START
-  
-  const welcomeWindow = createPage(400, 875, 'Diabase Rotary Printing Wizard - Welcome',welcomeHeaderRow,welcomeButtonRow );
+  //const welcomeWindow = createPage(400, 875, 'Diabase Printing Wizard - Home')
+  const walcomeWindow = createPage(400, 875, 'Diabase Wizard - Welcome',welcomeHeaderRow,welcomeButtonRow );
+  const rotaryWindow = createPage(400, 875, 'Diabase Rotary Printing Wizard - Welcome',rotaryHeaderRow,rotaryButtonRow );
   const stlPageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - STL processing',stlHeaderRow, stlButtonRow );
   const gcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',gcodeHeaderRow, gcodeButtonRow );
-  welcomeWindow.show();
-  global.win = welcomeWindow;
+  rotaryWindow.show();
+  global.win = rotaryWindow;
 
 // STARTUP CODE END
 //
@@ -269,7 +284,7 @@ let backToStl = false;
     // Root view
     const rootView = new QWidget();
     const rootViewLayout = new FlexLayout();
-    rootView.setObjectName("rootView");
+    rootView.setObjectName('rootView');
     rootView.setLayout(rootViewLayout);
   
     // Header banner and description
@@ -299,15 +314,15 @@ let backToStl = false;
 
   //Takes in the location of a file, and creates a new location path for the output
   function getOutputLoaction(inputString, type){
-    let lastSlash = inputString.lastIndexOf("\\"); //MACOS: let lastSlash = inputString.lastIndexOf("/")
-    let location = inputString.slice(0, lastSlash) + "\\"; //MACOS: let location = inputString.slice(0, lastSlash) + "/";
-    if(type == "stl"){
+    let lastSlash = inputString.lastIndexOf('\\'); //MACOS: let lastSlash = inputString.lastIndexOf('/')
+    let location = inputString.slice(0, lastSlash) + '\\'; //MACOS: let location = inputString.slice(0, lastSlash) + '/';
+    if(type == 'stl'){
       location+= inputString.slice(lastSlash + 1, inputString.length-4);
-      location+="_unwrapped.stl";
+      location+='_unwrapped.stl';
     }
-    else if(type == "gcode"){
+    else if(type == 'gcode'){
       location+= inputString.slice(lastSlash + 1, inputString.length-6);
-      location+="_readytoprint.gcode";
+      location+='_readytoprint.gcode';
     }
     return location;
   }
@@ -318,8 +333,8 @@ let backToStl = false;
   */
   function outputNewStl(pathString){
     const outputMessage = new QMessageBox();
-    let correctedPathString = pathString.split("/").join("\\"); //MACOS let correctedPathString = pathString.split("/").join("/");
-    let outputLocation = getOutputLoaction(correctedPathString, "stl");
+    let correctedPathString = pathString.split('/').join('\\'); //MACOS let correctedPathString = pathString.split('/').join('/');
+    let outputLocation = getOutputLoaction(correctedPathString, 'stl');
     let isnum = /^\d+$/.test(stretchInput.text());
     if(pathString != ''){
       if(isnum){
@@ -355,8 +370,8 @@ let backToStl = false;
   */
   function outputNewGcode(pathString){
     const outputMessage = new QMessageBox();
-    let correctedPathString = pathString.split("/").join("\\"); // MACOS: let correctedPathString = pathString.split("/").join("/");
-    let outputLocation = getOutputLoaction(correctedPathString, "gcode");
+    let correctedPathString = pathString.split('/').join('\\'); // MACOS: let correctedPathString = pathString.split('/').join('/');
+    let outputLocation = getOutputLoaction(correctedPathString, 'gcode');
     let isnum = parseFloat(radiusInput.text().match(/^-?\d*(\.\d+)?$/))>0;
     if(pathString != ''){
       if(isnum){
@@ -413,16 +428,16 @@ let backToStl = false;
 
   continueToStlProcessing.addEventListener('clicked', () => {
     stlPageWindow.show();
-    welcomeWindow.hide();
+    rotaryWindow.hide();
   });
 
   continueToGcodeProcessing.addEventListener('clicked', () => {
     gcodePageWindow.show();
-    welcomeWindow.hide();
+    rotaryWindow.hide();
   });
 
   backButtonStlPage.addEventListener('clicked', () => {
-    welcomeWindow.show();
+    rotaryWindow.show();
     stlPageWindow.hide();
     canContinue = false;
     backToStl = false;
@@ -448,7 +463,7 @@ let backToStl = false;
       stlPageWindow.show();
     }
     else{
-      welcomeWindow.show();
+      rotaryWindow.show();
       backToStl = false;
     }
       gcodePageWindow.hide();
