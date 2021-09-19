@@ -49,10 +49,14 @@ Click the upload button below to be directed to choose a .stl file. \n\
 If you would like to select a different file, click the upload button again.\n\
 Once the file is processed, a new .stl file will be created in the same location as the uploaded .stl file.'
 const rotaryGcodeInstructionsText = 'This functionality prepares a Gcode file for rotary printing.\n\
+Click the upload button below to be directed to choose a Gcode file, then enter the desired radius. \n\
+If you would like to select a different file, click the upload button again.\n\
+Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'
+const s3dGcodeInstructionsText = 'This functionality modifies simplify3D gcode to prepare it.\n\
+for printing on a Diabase machine.\n\
 Click the upload button below to be directed to choose a Gcode file. \n\
 If you would like to select a different file, click the upload button again.\n\
 Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'
-const s3dGcodeInstructionsText = ' ';
 
 //Global Variables
 let canContinue = false;
@@ -277,7 +281,7 @@ let backToStl = false;
   const rotaryWindow = createPage(400, 875, 'Diabase Rotary Printing Wizard - Welcome',rotaryHeaderRow,rotaryButtonRow );
   const stlPageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - STL processing',stlHeaderRow, stlButtonRow );
   const rotaryGcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',rotaryGcodeHeaderRow, rotaryGcodeButtonRow );
-  const s3dGcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',s3dGcodeHeaderRow, s3dGcodeButtonRow );
+  const s3dGcodePageWindow = createPage(470, 900, 'Diabase Rotary Printing Wizard - G-Code processing',s3dGcodeHeaderRow, s3dGcodeButtonRow );
   welcomeWindow.show();
   global.win = welcomeWindow;
 
