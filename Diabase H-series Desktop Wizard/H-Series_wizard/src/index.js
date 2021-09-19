@@ -52,6 +52,7 @@ const rotaryGcodeInstructionsText = 'This functionality prepares a Gcode file fo
 Click the upload button below to be directed to choose a Gcode file. \n\
 If you would like to select a different file, click the upload button again.\n\
 Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'
+const s3dGcodeInstructionsText = ' ';
 
 //Global Variables
 let canContinue = false;
@@ -166,7 +167,36 @@ let backToStl = false;
   const rotaryGcodeButtonRow = [backButtonRotaryGcodePage,processRotaryGcodeButton];
   const rotaryGcodeHeaderRow = [createLabel('instructions',rotaryGcodeInstructionsText), uploadRowRotaryGcodePage, radiusRowRotaryGcodePage];
 
-// Gcode PAGE WIDGETS END
+// Rotary Gcode PAGE WIDGETS END
+//
+//
+// S3d Gcode PAGE WIDGETS START
+
+  // Upload row
+  const uploadRowS3dGcodePage = new QWidget();
+  const uploadRowS3dGcodePageLayout = new FlexLayout();
+  uploadRowS3dGcodePage.setLayout(uploadRowS3dGcodePageLayout);
+  uploadRowS3dGcodePage.setObjectName('centerRow');
+
+  // Buttons
+  const uploadButtonS3dGcodePage = createButton('uploadButton','Upload .gcode File');
+  const backButtonS3dGcodePage = createButton('buttonRowButton','Back');
+  const processS3dGcodeButton = createButton('buttonRowButton','Process Selected Gcode');
+
+  const selectedS3dGcodeFileName = new QPlainTextEdit();
+  selectedS3dGcodeFileName.setReadOnly(true);
+  selectedS3dGcodeFileName.setWordWrapMode(3);
+  selectedS3dGcodeFileName.setObjectName('fileDisplayArea');
+
+  const S3dGcodeFileDialog = new QFileDialog();
+  S3dGcodeFileDialog.setNameFilter('(*.gcode)');
+
+  //Root
+  [uploadButtonS3dGcodePage,createLabel('selectedFile','Selected File:'),selectedS3dGcodeFileName].forEach(widget => uploadRowS3dGcodePageLayout.addWidget(widget));
+  const s3dGcodeButtonRow = [backButtonS3dGcodePage,processS3dGcodeButton];
+  const s3dGcodeHeaderRow = [createLabel('instructions',s3dGcodeInstructionsText), uploadRowS3dGcodePage];
+
+// S3d Gcode PAGE WIDGETS END
 //
 //
 // STYLING START
@@ -246,7 +276,8 @@ let backToStl = false;
   const welcomeWindow = createPage(400, 875, 'Diabase Wizard - Welcome',welcomeHeaderRow,welcomeButtonRow );
   const rotaryWindow = createPage(400, 875, 'Diabase Rotary Printing Wizard - Welcome',rotaryHeaderRow,rotaryButtonRow );
   const stlPageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - STL processing',stlHeaderRow, stlButtonRow );
-  const gcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',rotaryGcodeHeaderRow, rotaryGcodeButtonRow );
+  const rotaryGcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',rotaryGcodeHeaderRow, rotaryGcodeButtonRow );
+  const s3dGcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',s3dGcodeHeaderRow, s3dGcodeButtonRow );
   welcomeWindow.show();
   global.win = welcomeWindow;
 
@@ -404,7 +435,7 @@ let backToStl = false;
 
   function stlPageToGcodePage(){
     if(canContinue){
-      gcodePageWindow.show();
+      rotaryGcodePageWindow.show();
       stlPageWindow.hide();
       backToStl = true;
     }
@@ -428,6 +459,10 @@ let backToStl = false;
   gitButton.addEventListener('clicked', () => {
     open('https://github.com/diabase');
   });
+  s3dButton.addEventListener('clicked', () => {
+    s3dGcodePageWindow.show();
+    welcomeWindow.hide();
+  });
   rotaryBackButton.addEventListener('clicked', () => {
     welcomeWindow.show();
     rotaryWindow.hide();
@@ -442,10 +477,13 @@ let backToStl = false;
   });
 
   rotaryGcodeButton.addEventListener('clicked', () => {
-    gcodePageWindow.show();
+    rotaryGcodePageWindow.show();
     rotaryWindow.hide();
   });
-
+  backButtonS3dGcodePage.addEventListener('clicked', () => {
+    welcomeWindow.show();
+    s3dGcodePageWindow.hide();
+  });
   backButtonStlPage.addEventListener('clicked', () => {
     rotaryWindow.show();
     stlPageWindow.hide();
@@ -476,7 +514,7 @@ let backToStl = false;
       rotaryWindow.show();
       backToStl = false;
     }
-      gcodePageWindow.hide();
+      rotaryGcodePageWindow.hide();
   });
 
   uploadButtonRotaryGcodePage.addEventListener('clicked', () => {
