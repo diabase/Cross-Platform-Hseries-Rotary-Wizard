@@ -38,16 +38,17 @@ diabaseBannerImage.load(absoulteImagePath);
 
 // Messages
 const homeWelcomeMessage = 'Welcome to the Diabsae Engineering Wizard.\n\
-This Application '
-const rotaryWelcomeMessage = 'Welcome to the rotary Printing section of the wizard\n\
+This Application has processing scripts for various Diabase functions.\n\
+See the buttons below to view our github, or navigate to your desired function.'
+const rotaryWelcomeMessage = 'Welcome to the rotary Printing section of the wizard.\n\
 This section of the application is designed to process STL and G-Code files,\n\
 and prepare them for rotary printing.\n\
-See the buttons below to navigate to our our github, or to continue with STL or G-Code processing.'
+See the buttons below to read about rotary printing, or to continue with STL or G-Code processing.'
 const stlInstructionsText = 'This functionality prepares a .stl file for rotary printing.\n\
 Click the upload button below to be directed to choose a .stl file. \n\
 If you would like to select a different file, click the upload button again.\n\
 Once the file is processed, a new .stl file will be created in the same location as the uploaded .stl file.'
-const gcodeInstructionsText = 'This functionality prepares a Gcode file for rotary printing.\n\
+const rotaryGcodeInstructionsText = 'This functionality prepares a Gcode file for rotary printing.\n\
 Click the upload button below to be directed to choose a Gcode file. \n\
 If you would like to select a different file, click the upload button again.\n\
 Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'
@@ -59,12 +60,12 @@ let backToStl = false;
 // WELCOME PAGE WIDGETS START
 
   //Buttons
-  const websiteButton = createButton('buttonRowButton', 'What\'s Rotary Printing?');
   const gitButton = createButton('buttonRowButton', 'Diabase Github');
   const rotaryButton = createButton('buttonRowButton', 'Rotary Printing');
+  const s3dButton = createButton('buttonRowButton', 'Simplify3d Processing');
 
   //Root
-  const welcomeButtonRow = [gitButton, websiteButton, rotaryButton];
+  const welcomeButtonRow = [gitButton, rotaryButton, s3dButton];
   const welcomeHeaderRow = [createLabel('intro', homeWelcomeMessage)];
 
 // WELCOME PAGE WIDGETS END
@@ -73,11 +74,13 @@ let backToStl = false;
 // ROTARY PAGE WIDGETS START
 
   //Buttons
+  const websiteButton = createButton('buttonRowButton', 'What\'s Rotary Printing?');
   const continueToStlProcessing = createButton('buttonRowButton','STL processing');
-  const continueToGcodeProcessing = createButton('buttonRowButton', 'G-Code processing');
+  const rotaryGcodeButton = createButton('buttonRowButton', 'G-Code processing');
+  const rotaryBackButton = createButton('buttonRowButton', 'Back');
 
   //Root
-  const rotaryButtonRow = [continueToStlProcessing, continueToGcodeProcessing];
+  const rotaryButtonRow = [rotaryBackButton, websiteButton, continueToStlProcessing, rotaryGcodeButton];
   const rotaryHeaderRow = [createLabel('intro', rotaryWelcomeMessage)];
 
 // ROTARY PAGE WIDGETS END
@@ -126,42 +129,42 @@ let backToStl = false;
 // STL PAGE WIDGETS END
 //
 //
-// Gcode PAGE WIDGETS START
+// Rotary Gcode PAGE WIDGETS START
 
   // Upload row
-  const uploadRowGcodePage = new QWidget();
-  const uploadRowGcodePageLayout = new FlexLayout();
-  uploadRowGcodePage.setLayout(uploadRowGcodePageLayout);
-  uploadRowGcodePage.setObjectName('centerRow');
+  const uploadRowRotaryGcodePage = new QWidget();
+  const uploadRowRotaryGcodePageLayout = new FlexLayout();
+  uploadRowRotaryGcodePage.setLayout(uploadRowRotaryGcodePageLayout);
+  uploadRowRotaryGcodePage.setObjectName('centerRow');
 
   // radius Row
-  const radiusRowGcodePage = new QWidget();
-  const radiusRowGcodePageLayout = new FlexLayout();
-  radiusRowGcodePage.setLayout(radiusRowGcodePageLayout);
-  radiusRowGcodePage.setObjectName('centerRow');
+  const radiusRowRotaryGcodePage = new QWidget();
+  const radiusRowRotaryGcodePageLayout = new FlexLayout();
+  radiusRowRotaryGcodePage.setLayout(radiusRowRotaryGcodePageLayout);
+  radiusRowRotaryGcodePage.setObjectName('centerRow');
 
   // Buttons
-  const uploadButtonGcodePage = createButton('uploadButton','Upload .gcode File');
-  const backButtonGcodePage = createButton('buttonRowButton','Back');
-  const processGcodeButton = createButton('buttonRowButton','Process Selected Gcode');
+  const uploadButtonRotaryGcodePage = createButton('uploadButton','Upload .gcode File');
+  const backButtonRotaryGcodePage = createButton('buttonRowButton','Back');
+  const processRotaryGcodeButton = createButton('buttonRowButton','Process Selected Gcode');
 
   // radius Selection
   const radiusInput = new QLineEdit();
   radiusInput.setObjectName('input');
 
-  const selectedGcodeFileName = new QPlainTextEdit();
-  selectedGcodeFileName.setReadOnly(true);
-  selectedGcodeFileName.setWordWrapMode(3);
-  selectedGcodeFileName.setObjectName('fileDisplayArea');
+  const selectedRotaryGcodeFileName = new QPlainTextEdit();
+  selectedRotaryGcodeFileName.setReadOnly(true);
+  selectedRotaryGcodeFileName.setWordWrapMode(3);
+  selectedRotaryGcodeFileName.setObjectName('fileDisplayArea');
 
-  const GcodeFileDialog = new QFileDialog();
-  GcodeFileDialog.setNameFilter('(*.gcode)');
+  const rotaryGcodeFileDialog = new QFileDialog();
+  rotaryGcodeFileDialog.setNameFilter('(*.gcode)');
 
   //Root
-  [uploadButtonGcodePage,createLabel('selectedFile','Selected File:'),selectedGcodeFileName].forEach(widget => uploadRowGcodePageLayout.addWidget(widget));
-  [createLabel('enterRadiusLabel','Inner Radius in mm:'), radiusInput].forEach(widget => radiusRowGcodePageLayout.addWidget(widget));
-  const gcodeButtonRow = [backButtonGcodePage,processGcodeButton];
-  const gcodeHeaderRow = [createLabel('instructions',gcodeInstructionsText), uploadRowGcodePage, radiusRowGcodePage];
+  [uploadButtonRotaryGcodePage,createLabel('selectedFile','Selected File:'),selectedRotaryGcodeFileName].forEach(widget => uploadRowRotaryGcodePageLayout.addWidget(widget));
+  [createLabel('enterRadiusLabel','Inner Radius in mm:'), radiusInput].forEach(widget => radiusRowRotaryGcodePageLayout.addWidget(widget));
+  const rotaryGcodeButtonRow = [backButtonRotaryGcodePage,processRotaryGcodeButton];
+  const rotaryGcodeHeaderRow = [createLabel('instructions',rotaryGcodeInstructionsText), uploadRowRotaryGcodePage, radiusRowRotaryGcodePage];
 
 // Gcode PAGE WIDGETS END
 //
@@ -240,12 +243,12 @@ let backToStl = false;
 //
 // STARTUP CODE START
   //const welcomeWindow = createPage(400, 875, 'Diabase Printing Wizard - Home')
-  const walcomeWindow = createPage(400, 875, 'Diabase Wizard - Welcome',welcomeHeaderRow,welcomeButtonRow );
+  const welcomeWindow = createPage(400, 875, 'Diabase Wizard - Welcome',welcomeHeaderRow,welcomeButtonRow );
   const rotaryWindow = createPage(400, 875, 'Diabase Rotary Printing Wizard - Welcome',rotaryHeaderRow,rotaryButtonRow );
   const stlPageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - STL processing',stlHeaderRow, stlButtonRow );
-  const gcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',gcodeHeaderRow, gcodeButtonRow );
-  rotaryWindow.show();
-  global.win = rotaryWindow;
+  const gcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',rotaryGcodeHeaderRow, rotaryGcodeButtonRow );
+  welcomeWindow.show();
+  global.win = welcomeWindow;
 
 // STARTUP CODE END
 //
@@ -425,13 +428,20 @@ let backToStl = false;
   gitButton.addEventListener('clicked', () => {
     open('https://github.com/diabase');
   });
-
+  rotaryBackButton.addEventListener('clicked', () => {
+    welcomeWindow.show();
+    rotaryWindow.hide();
+  });
+  rotaryButton.addEventListener('clicked', () => {
+    rotaryWindow.show();
+    welcomeWindow.hide();
+  });
   continueToStlProcessing.addEventListener('clicked', () => {
     stlPageWindow.show();
     rotaryWindow.hide();
   });
 
-  continueToGcodeProcessing.addEventListener('clicked', () => {
+  rotaryGcodeButton.addEventListener('clicked', () => {
     gcodePageWindow.show();
     rotaryWindow.hide();
   });
@@ -458,7 +468,7 @@ let backToStl = false;
     stlPageToGcodePage();
   });
 
-  backButtonGcodePage.addEventListener('clicked', () => {
+  backButtonRotaryGcodePage.addEventListener('clicked', () => {
     if(backToStl){
       stlPageWindow.show();
     }
@@ -469,13 +479,13 @@ let backToStl = false;
       gcodePageWindow.hide();
   });
 
-  uploadButtonGcodePage.addEventListener('clicked', () => {
-    GcodeFileDialog.exec();
-    selectedGcodeFileName.setPlainText(GcodeFileDialog.selectedFiles());
+  uploadButtonRotaryGcodePage.addEventListener('clicked', () => {
+    rotaryGcodeFileDialog.exec();
+    selectedRotaryGcodeFileName.setPlainText(rotaryGcodeFileDialog.selectedFiles());
   });
 
-  processGcodeButton.addEventListener('clicked', () => {
-    outputNewGcode(String(GcodeFileDialog.selectedFiles()));
+  processRotaryGcodeButton.addEventListener('clicked', () => {
+    outputNewGcode(String(rotaryGcodeFileDialog.selectedFiles()));
     backToStl = false;
   });
 
