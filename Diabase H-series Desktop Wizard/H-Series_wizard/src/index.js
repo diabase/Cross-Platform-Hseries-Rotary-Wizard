@@ -25,11 +25,18 @@ QFileDialog, QMainWindow, QWidget,
 QLabel, FlexLayout, QPixmap,
 QIcon, QPushButton, QPlainTextEdit
 } from '@nodegui/nodegui';
+import{
+homeWelcomeMessage, rotaryWelcomeMessage,
+stlInstructionsText, rotaryGcodeInstructionsText,
+s3dGcodeInstructionsText } from './messages';
 import logo from '../assets/DiabaseIcon.jpg';
 import banner from '../assets/DiabaseBanner.png';
+import { StyleSheet } from './styleSheet';
+
 const stlProcessing = require('../build/Release/fileProcessing.node');
 const gcodeProcessing = require('../build/Release/gcodeProcessing.node');
 const open = require('open');
+const tools = require('./tools');
 
 // Images
 const absoulteImagePath = banner;
@@ -37,26 +44,7 @@ const diabaseBannerImage = new QPixmap();
 diabaseBannerImage.load(absoulteImagePath);
 
 // Messages
-const homeWelcomeMessage = 'Welcome to the Diabsae Engineering Wizard.\n\
-This Application has processing scripts for various Diabase functions.\n\
-See the buttons below to view our github, or navigate to your desired function.'
-const rotaryWelcomeMessage = 'Welcome to the rotary Printing section of the wizard.\n\
-This section of the application is designed to process STL and G-Code files,\n\
-and prepare them for rotary printing.\n\
-See the buttons below to read about rotary printing, or to continue with STL or G-Code processing.'
-const stlInstructionsText = 'This functionality prepares a .stl file for rotary printing.\n\
-Click the upload button below to be directed to choose a .stl file. \n\
-If you would like to select a different file, click the upload button again.\n\
-Once the file is processed, a new .stl file will be created in the same location as the uploaded .stl file.'
-const rotaryGcodeInstructionsText = 'This functionality prepares a Gcode file for rotary printing.\n\
-Click the upload button below to be directed to choose a Gcode file, then enter the desired radius. \n\
-If you would like to select a different file, click the upload button again.\n\
-Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'
-const s3dGcodeInstructionsText = 'This functionality modifies simplify3D gcode to prepare it.\n\
-for printing on a Diabase machine.\n\
-Click the upload button below to be directed to choose a Gcode file. \n\
-If you would like to select a different file, click the upload button again.\n\
-Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'
+
 
 //Global Variables
 let canContinue = false;
@@ -203,78 +191,6 @@ let backToStl = false;
 // S3d Gcode PAGE WIDGETS END
 //
 //
-// STYLING START
-
-  const StyleSheet = `
-    #rootView{
-      background-color: #FFFFFF;
-      height: '100%';
-      align-items: 'center';
-    }
-    #banner{
-      qproperty-alignment: AlignCenter;
-    }
-    #intro {
-      font-size: 18px;
-      qproperty-alignment: AlignCenter;
-      padding: 20;
-    }
-    #instructions{
-      font-size: 18px;
-      qproperty-alignment: AlignCenter;
-      padding: 10;
-    }
-    #centerRow{
-      margin-bottom: 5px;
-      margin-bottom: 5px;
-      flex-direction: row;
-      padding: 20;
-      align-items: 'center';
-    }
-    #buttonRowButton{
-      margin-right: 5px;
-      margin-left: 5px;
-      font-size: 14px;
-      width: 185px;
-      height: 50px;
-    }
-    #stlToGcode {
-      margin-right: 5px;
-      margin-left: 5px;
-      font-size: 16px;
-      width: 185px;
-      height: 50px;
-    }
-    #selectedFile{
-      margin-left: 20px;
-      font-size: 16px;
-      qproperty-alignment: AlignCenter;
-    }
-    #enterStretchLabel{
-      margin-left: 6px;
-      font-size: 16px;
-      qproperty-alignment: AlignCenter;
-    }
-    #enterRadiusLabel{
-      margin-left: 50px;
-      font-size: 16px;
-      qproperty-alignment: AlignCenter;
-    }
-    #input{
-      font-size: 16px;
-      width: 100px;
-      height: 40px;
-    }
-    #fileDisplayArea{
-      font-size: 16px;
-      width: 500px;
-      height: 40px;
-    }  
-  `;
-
-// STYLING END
-//
-//
 // STARTUP CODE START
   //const welcomeWindow = createPage(400, 875, 'Diabase Printing Wizard - Home')
   const welcomeWindow = createPage(400, 875, 'Diabase Wizard - Welcome',welcomeHeaderRow,welcomeButtonRow );
@@ -291,12 +207,7 @@ let backToStl = false;
 // APPLICATION LOGIC START
 
   //Creates Button with given object name and text
-  function createButton(name, text){
-    const button = new QPushButton();
-    button.setText(text);
-    button.setObjectName(name);
-    return button;
-  }
+  
 
   //Creates a label with given object name and text
   function createLabel(name, text){
@@ -457,7 +368,8 @@ let backToStl = false;
 
   // Event handling
   websiteButton.addEventListener('clicked', () => {
-    open('https://www.diabasemachines.com/rotary-3d-printing');
+    console.log(variableName);
+    //open('https://www.diabasemachines.com/rotary-3d-printing');
   });
 
   gitButton.addEventListener('clicked', () => {
