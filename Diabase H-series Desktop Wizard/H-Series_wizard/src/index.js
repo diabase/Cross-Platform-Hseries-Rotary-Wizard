@@ -21,30 +21,17 @@ Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
 // Imports
 import{
 QLineEdit, QMessageBox, ButtonRole,
-QFileDialog, QMainWindow, QWidget,
-QLabel, FlexLayout, QPixmap,
-QIcon, QPushButton, QPlainTextEdit
+QFileDialog, FlexLayout, QPushButton, 
+QPlainTextEdit
 } from '@nodegui/nodegui';
 import{
 homeWelcomeMessage, rotaryWelcomeMessage,
 stlInstructionsText, rotaryGcodeInstructionsText,
 s3dGcodeInstructionsText } from './messages';
-import logo from '../assets/DiabaseIcon.jpg';
-import banner from '../assets/DiabaseBanner.png';
-import { StyleSheet } from './styleSheet';
 
-const stlProcessing = require('../build/Release/fileProcessing.node');
-const gcodeProcessing = require('../build/Release/gcodeProcessing.node');
 const open = require('open');
-const tools = require('./tools');
-
-// Images
-const absoulteImagePath = banner;
-const diabaseBannerImage = new QPixmap();
-diabaseBannerImage.load(absoulteImagePath);
-
-// Messages
-
+const guiTools = require('./guiTools');
+const fileTools = require('./fileTools');
 
 //Global Variables
 let canContinue = false;
@@ -53,13 +40,13 @@ let backToStl = false;
 // WELCOME PAGE WIDGETS START
 
   //Buttons
-  const gitButton = createButton('buttonRowButton', 'Diabase Github');
-  const rotaryButton = createButton('buttonRowButton', 'Rotary Printing');
-  const s3dButton = createButton('buttonRowButton', 'Simplify3d Processing');
+  const gitButton = guiTools.createButton('buttonRowButton', 'Diabase Github');
+  const rotaryButton = guiTools.createButton('buttonRowButton', 'Rotary Printing');
+  const s3dButton = guiTools.createButton('buttonRowButton', 'Simplify3d Processing');
 
   //Root
   const welcomeButtonRow = [gitButton, rotaryButton, s3dButton];
-  const welcomeHeaderRow = [createLabel('intro', homeWelcomeMessage)];
+  const welcomeHeaderRow = [guiTools.createLabel('intro', homeWelcomeMessage)];
 
 // WELCOME PAGE WIDGETS END
 //
@@ -67,14 +54,14 @@ let backToStl = false;
 // ROTARY PAGE WIDGETS START
 
   //Buttons
-  const websiteButton = createButton('buttonRowButton', 'What\'s Rotary Printing?');
-  const continueToStlProcessing = createButton('buttonRowButton','STL processing');
-  const rotaryGcodeButton = createButton('buttonRowButton', 'G-Code processing');
-  const rotaryBackButton = createButton('buttonRowButton', 'Back');
+  const websiteButton = guiTools.createButton('buttonRowButton', 'What\'s Rotary Printing?');
+  const continueToStlProcessing = guiTools.createButton('buttonRowButton','STL processing');
+  const rotaryGcodeButton = guiTools.createButton('buttonRowButton', 'G-Code processing');
+  const rotaryBackButton = guiTools.createButton('buttonRowButton', 'Back');
 
   //Root
   const rotaryButtonRow = [rotaryBackButton, websiteButton, continueToStlProcessing, rotaryGcodeButton];
-  const rotaryHeaderRow = [createLabel('intro', rotaryWelcomeMessage)];
+  const rotaryHeaderRow = [guiTools.createLabel('intro', rotaryWelcomeMessage)];
 
 // ROTARY PAGE WIDGETS END
 //
@@ -94,10 +81,10 @@ let backToStl = false;
   stretchRowStlPage.setObjectName('centerRow');
 
   // Buttons
-  const uploadButtonStlPage = createButton('uploadButton','Upload .STL File');
-  const backButtonStlPage = createButton('buttonRowButton','Back');
-  const processStlButton = createButton('buttonRowButton','Process Selected STL');
-  const stlToGcode = new createButton('buttonRowButton','Continue to\nGcode processing');
+  const uploadButtonStlPage = guiTools.createButton('uploadButton','Upload .STL File');
+  const backButtonStlPage = guiTools.createButton('buttonRowButton','Back');
+  const processStlButton = guiTools.createButton('buttonRowButton','Process Selected STL');
+  const stlToGcode = new guiTools.createButton('buttonRowButton','Continue to\nGcode processing');
 
   // Stretch Selection
   const stretchInput = new QLineEdit();
@@ -114,10 +101,10 @@ let backToStl = false;
   stlFileDialog.setNameFilter('(*.stl)');
 
   //Root
-  [uploadButtonStlPage,createLabel('selectedFile','Selected File:'),selectedStlFileName].forEach(widget => uploadRowStlPageLayout.addWidget(widget));
-  [createLabel('enterStretchLabel','Stretch Factor(1 is unchanged):'), stretchInput].forEach(widget => stretchRowStlPageLayout.addWidget(widget));
+  [uploadButtonStlPage,guiTools.createLabel('selectedFile','Selected File:'),selectedStlFileName].forEach(widget => uploadRowStlPageLayout.addWidget(widget));
+  [guiTools.createLabel('enterStretchLabel','Stretch Factor(1 is unchanged):'), stretchInput].forEach(widget => stretchRowStlPageLayout.addWidget(widget));
   const stlButtonRow = [backButtonStlPage,processStlButton,stlToGcode];
-  const stlHeaderRow = [createLabel('instructions', stlInstructionsText), uploadRowStlPage, stretchRowStlPage];
+  const stlHeaderRow = [guiTools.createLabel('instructions', stlInstructionsText), uploadRowStlPage, stretchRowStlPage];
 
 // STL PAGE WIDGETS END
 //
@@ -137,9 +124,9 @@ let backToStl = false;
   radiusRowRotaryGcodePage.setObjectName('centerRow');
 
   // Buttons
-  const uploadButtonRotaryGcodePage = createButton('uploadButton','Upload .gcode File');
-  const backButtonRotaryGcodePage = createButton('buttonRowButton','Back');
-  const processRotaryGcodeButton = createButton('buttonRowButton','Process Selected Gcode');
+  const uploadButtonRotaryGcodePage = guiTools.createButton('uploadButton','Upload .gcode File');
+  const backButtonRotaryGcodePage = guiTools.createButton('buttonRowButton','Back');
+  const processRotaryGcodeButton = guiTools.createButton('buttonRowButton','Process Selected Gcode');
 
   // radius Selection
   const radiusInput = new QLineEdit();
@@ -154,10 +141,10 @@ let backToStl = false;
   rotaryGcodeFileDialog.setNameFilter('(*.gcode)');
 
   //Root
-  [uploadButtonRotaryGcodePage,createLabel('selectedFile','Selected File:'),selectedRotaryGcodeFileName].forEach(widget => uploadRowRotaryGcodePageLayout.addWidget(widget));
-  [createLabel('enterRadiusLabel','Inner Radius in mm:'), radiusInput].forEach(widget => radiusRowRotaryGcodePageLayout.addWidget(widget));
+  [uploadButtonRotaryGcodePage,guiTools.createLabel('selectedFile','Selected File:'),selectedRotaryGcodeFileName].forEach(widget => uploadRowRotaryGcodePageLayout.addWidget(widget));
+  [guiTools.createLabel('enterRadiusLabel','Inner Radius in mm:'), radiusInput].forEach(widget => radiusRowRotaryGcodePageLayout.addWidget(widget));
   const rotaryGcodeButtonRow = [backButtonRotaryGcodePage,processRotaryGcodeButton];
-  const rotaryGcodeHeaderRow = [createLabel('instructions',rotaryGcodeInstructionsText), uploadRowRotaryGcodePage, radiusRowRotaryGcodePage];
+  const rotaryGcodeHeaderRow = [guiTools.createLabel('instructions',rotaryGcodeInstructionsText), uploadRowRotaryGcodePage, radiusRowRotaryGcodePage];
 
 // Rotary Gcode PAGE WIDGETS END
 //
@@ -171,9 +158,9 @@ let backToStl = false;
   uploadRowS3dGcodePage.setObjectName('centerRow');
 
   // Buttons
-  const uploadButtonS3dGcodePage = createButton('uploadButton','Upload .gcode File');
-  const backButtonS3dGcodePage = createButton('buttonRowButton','Back');
-  const processS3dGcodeButton = createButton('buttonRowButton','Process Selected Gcode');
+  const uploadButtonS3dGcodePage = guiTools.createButton('uploadButton','Upload .gcode File');
+  const backButtonS3dGcodePage = guiTools.createButton('buttonRowButton','Back');
+  const processS3dGcodeButton = guiTools.createButton('buttonRowButton','Process Selected Gcode');
 
   const selectedS3dGcodeFileName = new QPlainTextEdit();
   selectedS3dGcodeFileName.setReadOnly(true);
@@ -184,20 +171,19 @@ let backToStl = false;
   s3dGcodeFileDialog.setNameFilter('(*.gcode)');
 
   //Root
-  [uploadButtonS3dGcodePage,createLabel('selectedFile','Selected File:'),selectedS3dGcodeFileName].forEach(widget => uploadRowS3dGcodePageLayout.addWidget(widget));
+  [uploadButtonS3dGcodePage,guiTools.createLabel('selectedFile','Selected File:'),selectedS3dGcodeFileName].forEach(widget => uploadRowS3dGcodePageLayout.addWidget(widget));
   const s3dGcodeButtonRow = [backButtonS3dGcodePage,processS3dGcodeButton];
-  const s3dGcodeHeaderRow = [createLabel('instructions',s3dGcodeInstructionsText), uploadRowS3dGcodePage];
+  const s3dGcodeHeaderRow = [guiTools.createLabel('instructions',s3dGcodeInstructionsText), uploadRowS3dGcodePage];
 
 // S3d Gcode PAGE WIDGETS END
 //
 //
 // STARTUP CODE START
-  //const welcomeWindow = createPage(400, 875, 'Diabase Printing Wizard - Home')
-  const welcomeWindow = createPage(400, 875, 'Diabase Wizard - Welcome',welcomeHeaderRow,welcomeButtonRow );
-  const rotaryWindow = createPage(400, 875, 'Diabase Rotary Printing Wizard - Welcome',rotaryHeaderRow,rotaryButtonRow );
-  const stlPageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - STL processing',stlHeaderRow, stlButtonRow );
-  const rotaryGcodePageWindow = createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',rotaryGcodeHeaderRow, rotaryGcodeButtonRow );
-  const s3dGcodePageWindow = createPage(470, 900, 'Diabase Rotary Printing Wizard - G-Code processing',s3dGcodeHeaderRow, s3dGcodeButtonRow );
+  const welcomeWindow = guiTools.createPage(400, 875, 'Diabase Wizard - Welcome',welcomeHeaderRow,welcomeButtonRow );
+  const rotaryWindow = guiTools.createPage(400, 875, 'Diabase Rotary Printing Wizard - Welcome',rotaryHeaderRow,rotaryButtonRow );
+  const stlPageWindow = guiTools.createPage(500, 900, 'Diabase Rotary Printing Wizard - STL processing',stlHeaderRow, stlButtonRow );
+  const rotaryGcodePageWindow = guiTools.createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',rotaryGcodeHeaderRow, rotaryGcodeButtonRow );
+  const s3dGcodePageWindow = guiTools.createPage(470, 900, 'Diabase Rotary Printing Wizard - G-Code processing',s3dGcodeHeaderRow, s3dGcodeButtonRow );
   welcomeWindow.show();
   global.win = welcomeWindow;
 
@@ -205,148 +191,6 @@ let backToStl = false;
 //
 //
 // APPLICATION LOGIC START
-
-  //Creates Button with given object name and text
-  
-
-  //Creates a label with given object name and text
-  function createLabel(name, text){
-    const label = new QLabel();
-    label.setText(text);
-    label.setObjectName(name);
-    return label;
-  }
-
-  /*
-  This function creates an entire page. 
-  It starts by creating a window, and assigning it a root view.
-  It then adds all the required widgets into the root view. 
-  Return type is QMainWindow.
-  */
-  function createPage(height, width, title, headerWidgets, buttonRowWidgets){
-    // Window
-    const window = new QMainWindow();
-    window.setWindowTitle(title);
-    window.resize(width, height);
-    window.setWindowIcon(new QIcon(logo));
-
-    // Root view
-    const rootView = new QWidget();
-    const rootViewLayout = new FlexLayout();
-    rootView.setObjectName('rootView');
-    rootView.setLayout(rootViewLayout);
-  
-    // Header banner and description
-    const banner = new QLabel();
-    banner.setPixmap(diabaseBannerImage);
-    banner.setObjectName('banner');
-    headerWidgets.unshift(banner);
-  
-    // Field set header
-    const header = new QWidget();
-    const headerLayout = new FlexLayout();
-    header.setLayout(headerLayout);
-    headerWidgets.forEach(widget => headerLayout.addWidget(widget));
-  
-    // Button row
-    const buttonRow = new QWidget();
-    const buttonRowLayout = new FlexLayout();
-    buttonRow.setLayout(buttonRowLayout);
-    buttonRow.setObjectName('centerRow');
-    buttonRowWidgets.forEach(widget => buttonRowLayout.addWidget(widget));
-  
-    [header, buttonRow].forEach(widget => rootViewLayout.addWidget(widget));
-    window.setCentralWidget(rootView);
-    window.setStyleSheet(StyleSheet);
-    return window;
-  }
-
-  //Takes in the location of a file, and creates a new location path for the output
-  function getOutputLoaction(inputString, type){
-    let lastSlash = inputString.lastIndexOf('\\'); //MACOS: let lastSlash = inputString.lastIndexOf('/')
-    let location = inputString.slice(0, lastSlash) + '\\'; //MACOS: let location = inputString.slice(0, lastSlash) + '/';
-    if(type == 'stl'){
-      location+= inputString.slice(lastSlash + 1, inputString.length-4);
-      location+='_unwrapped.stl';
-    }
-    else if(type == 'gcode'){
-      location+= inputString.slice(lastSlash + 1, inputString.length-6);
-      location+='_readytoprint.gcode';
-    }
-    return location;
-  }
-
-  /*Takes in the location of the .stl file, and calls all the required scripts and functions to output a processed
-  .stl file to the same file location as the original .stl file
-  Displays either a success or failure message after
-  */
-  function outputNewStl(pathString){
-    const outputMessage = new QMessageBox();
-    let correctedPathString = pathString.split('/').join('\\'); //MACOS let correctedPathString = pathString.split('/').join('/');
-    let outputLocation = getOutputLoaction(correctedPathString, 'stl');
-    let isnum = /^\d+$/.test(stretchInput.text());
-    if(pathString != ''){
-      if(isnum){
-        if(stlProcessing.processSTL(correctedPathString, outputLocation, stretchInput.text())){
-          outputMessage.setWindowTitle('Success');
-          outputMessage.setText('New .stl file created at '+outputLocation);
-          canContinue = true;
-        }
-        else{
-          outputMessage.setWindowTitle('Error');
-          outputMessage.setText('Could not read selected file');
-          canContinue = false;
-        }
-      }
-      else{
-        outputMessage.setWindowTitle('Error');
-        outputMessage.setText('Please Enter a Valid Stretch Factor');
-      }
-    }
-    else{
-      outputMessage.setWindowTitle('Error');
-      outputMessage.setText('Please Select a .stl File');
-    }
-    const closeOutputMessage = new QPushButton();
-    closeOutputMessage.setText('Close');
-    outputMessage.addButton(closeOutputMessage, ButtonRole.AcceptRole);
-    outputMessage.exec();
-  }
-
-  /*Takes in the location of the .gcode file, and calls all the required scripts and functions to output a processed
-  .gcode file to the same file location as the original .gcode file
-  Displays either a success or failure message after
-  */
-  function outputNewGcode(pathString){
-    const outputMessage = new QMessageBox();
-    let correctedPathString = pathString.split('/').join('\\'); // MACOS: let correctedPathString = pathString.split('/').join('/');
-    let outputLocation = getOutputLoaction(correctedPathString, 'gcode');
-    let isnum = parseFloat(radiusInput.text().match(/^-?\d*(\.\d+)?$/))>0;
-    if(pathString != ''){
-      if(isnum){
-          if(gcodeProcessing.gcodeProcessing(correctedPathString, outputLocation, radiusInput.text())){
-            outputMessage.setWindowTitle('Success');
-            outputMessage.setText('New .gcode file created at '+outputLocation);
-          }
-          else{
-            outputMessage.setWindowTitle('Error');
-            outputMessage.setText('Could not read selected file');
-          }
-        }
-        else{
-          outputMessage.setWindowTitle('Error');
-          outputMessage.setText('Please Enter a Valid Radius in mm');
-        }
-      }
-      else{
-        outputMessage.setWindowTitle('Error');
-        outputMessage.setText('Please Select a .gcode File');
-      }
-    const closeOutputMessage = new QPushButton();
-    closeOutputMessage.setText('Close');
-    outputMessage.addButton(closeOutputMessage, ButtonRole.AcceptRole);
-    outputMessage.exec();
-  }
 
   function stlPageToGcodePage(){
     if(canContinue){
@@ -368,8 +212,7 @@ let backToStl = false;
 
   // Event handling
   websiteButton.addEventListener('clicked', () => {
-    console.log(variableName);
-    //open('https://www.diabasemachines.com/rotary-3d-printing');
+    open('https://www.diabasemachines.com/rotary-3d-printing');
   });
 
   gitButton.addEventListener('clicked', () => {
@@ -415,7 +258,8 @@ let backToStl = false;
   });
 
   processStlButton.addEventListener('clicked', () => {
-    outputNewStl(String(stlFileDialog.selectedFiles()));
+    console.log("cp1");
+    canContinue = fileTools.outputNewStl(String(stlFileDialog.selectedFiles()), stretchInput.text());
   });
 
   stlToGcode.addEventListener('clicked', () => {
@@ -444,7 +288,7 @@ let backToStl = false;
   });
 
   processRotaryGcodeButton.addEventListener('clicked', () => {
-    outputNewGcode(String(rotaryGcodeFileDialog.selectedFiles()));
+    fileTools.outputNewGcode(String(rotaryGcodeFileDialog.selectedFiles()), radiusInput.text());
     backToStl = false;
   });
 
