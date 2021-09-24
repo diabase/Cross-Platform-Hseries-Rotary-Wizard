@@ -192,8 +192,8 @@ let backToStl = false;
   selectedS3dGcodeFileName.setWordWrapMode(3);
   selectedS3dGcodeFileName.setObjectName('fileDisplayArea');
 
-  const S3dGcodeFileDialog = new QFileDialog();
-  S3dGcodeFileDialog.setNameFilter('(*.gcode)');
+  const s3dGcodeFileDialog = new QFileDialog();
+  s3dGcodeFileDialog.setNameFilter('(*.gcode)');
 
   //Root
   [uploadButtonS3dGcodePage,createLabel('selectedFile','Selected File:'),selectedS3dGcodeFileName].forEach(widget => uploadRowS3dGcodePageLayout.addWidget(widget));
@@ -524,6 +524,11 @@ let backToStl = false;
   uploadButtonRotaryGcodePage.addEventListener('clicked', () => {
     rotaryGcodeFileDialog.exec();
     selectedRotaryGcodeFileName.setPlainText(rotaryGcodeFileDialog.selectedFiles());
+  });
+
+  uploadButtonS3dGcodePage.addEventListener('clicked', () => {
+    s3dGcodeFileDialog.exec();
+    selectedS3dGcodeFileName.setPlainText(s3dGcodeFileDialog.selectedFiles());
   });
 
   processRotaryGcodeButton.addEventListener('clicked', () => {
