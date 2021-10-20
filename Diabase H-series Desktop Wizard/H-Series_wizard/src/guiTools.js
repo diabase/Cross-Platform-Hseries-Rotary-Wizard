@@ -24,6 +24,7 @@ import{
   FlexLayout, QPixmap, QIcon,
   QPushButton
   } from '@nodegui/nodegui';
+  
 import { StyleSheet } from './styleSheet';
 import logo from '../assets/DiabaseIcon.jpg';
 import banner from '../assets/DiabaseBanner.png';

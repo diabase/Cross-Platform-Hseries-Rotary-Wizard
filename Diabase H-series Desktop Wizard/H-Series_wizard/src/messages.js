@@ -13,8 +13,7 @@ export const rotaryGcodeInstructionsText = 'This functionality prepares a Gcode 
 Click the upload button below to be directed to choose a Gcode file, then enter the desired radius. \n\
 If you would like to select a different file, click the upload button again.\n\
 Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'
-export const s3dGcodeInstructionsText = 'This functionality modifies simplify3D gcode to prepare it.\n\
-for printing on a Diabase machine.\n\
+export const s3dGcodeInstructionsText = 'This functionality modifies simplify3D gcode to prepare it for printing on a Diabase machine.\n\
 Click the upload button below to be directed to choose a Gcode file. \n\
 If you would like to select a different file, click the upload button again.\n\
 Once the file is processed, a new Gcode file will be created in the same location as the uploaded Gcode file.'

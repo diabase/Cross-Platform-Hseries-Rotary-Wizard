@@ -22,8 +22,9 @@ Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
 import{
 QLineEdit, QMessageBox, ButtonRole,
 QFileDialog, FlexLayout, QPushButton, 
-QPlainTextEdit
+QPlainTextEdit, QWidget
 } from '@nodegui/nodegui';
+
 import{
 homeWelcomeMessage, rotaryWelcomeMessage,
 stlInstructionsText, rotaryGcodeInstructionsText,
@@ -157,10 +158,19 @@ let backToStl = false;
   uploadRowS3dGcodePage.setLayout(uploadRowS3dGcodePageLayout);
   uploadRowS3dGcodePage.setObjectName('centerRow');
 
+   // preheat Row
+   const preheatRow = new QWidget();
+   const preheatRowLayout = new FlexLayout();
+   preheatRow.setLayout(preheatRowLayout);
+   preheatRow.setObjectName('centerRow');
+
   // Buttons
   const uploadButtonS3dGcodePage = guiTools.createButton('uploadButton','Upload .gcode File');
   const backButtonS3dGcodePage = guiTools.createButton('buttonRowButton','Back');
   const processS3dGcodeButton = guiTools.createButton('buttonRowButton','Process Selected Gcode');
+
+  const preHeatInput = new QLineEdit();
+  preHeatInput.setObjectName('input');
 
   const selectedS3dGcodeFileName = new QPlainTextEdit();
   selectedS3dGcodeFileName.setReadOnly(true);
@@ -172,8 +182,9 @@ let backToStl = false;
 
   //Root
   [uploadButtonS3dGcodePage,guiTools.createLabel('selectedFile','Selected File:'),selectedS3dGcodeFileName].forEach(widget => uploadRowS3dGcodePageLayout.addWidget(widget));
+  [guiTools.createLabel('enterPreheatLabel','Preheat by how many lines:'), preHeatInput].forEach(widget => preheatRowLayout.addWidget(widget));
   const s3dGcodeButtonRow = [backButtonS3dGcodePage,processS3dGcodeButton];
-  const s3dGcodeHeaderRow = [guiTools.createLabel('instructions',s3dGcodeInstructionsText), uploadRowS3dGcodePage];
+  const s3dGcodeHeaderRow = [guiTools.createLabel('instructions',s3dGcodeInstructionsText), uploadRowS3dGcodePage, preheatRow];
 
 // S3d Gcode PAGE WIDGETS END
 //
@@ -183,7 +194,7 @@ let backToStl = false;
   const rotaryWindow = guiTools.createPage(400, 875, 'Diabase Rotary Printing Wizard - Welcome',rotaryHeaderRow,rotaryButtonRow );
   const stlPageWindow = guiTools.createPage(500, 900, 'Diabase Rotary Printing Wizard - STL processing',stlHeaderRow, stlButtonRow );
   const rotaryGcodePageWindow = guiTools.createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',rotaryGcodeHeaderRow, rotaryGcodeButtonRow );
-  const s3dGcodePageWindow = guiTools.createPage(470, 900, 'Diabase Rotary Printing Wizard - G-Code processing',s3dGcodeHeaderRow, s3dGcodeButtonRow );
+  const s3dGcodePageWindow = guiTools.createPage(500, 900, 'Diabase Rotary Printing Wizard - G-Code processing',s3dGcodeHeaderRow,s3dGcodeButtonRow );
   welcomeWindow.show();
   global.win = welcomeWindow;
 

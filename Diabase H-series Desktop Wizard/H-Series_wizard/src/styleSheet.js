@@ -1,3 +1,23 @@
+/*
+Diabase H-Series Cross-Platform Wizard
+Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
+    This file is part of Diabase H-Series Cross-Platform Wizard.
+
+    Diabase H-Series Cross-Platform Wizard is free software: you can 
+    redistribute it and/or modify it under the terms of the GNU Affero
+    General Public License as published by the Free Software Foundation,
+    either version 3 of the License, or (at your option) any later version.
+
+    Diabase H-Series Cross-Platform Wizard is distributed in the hope 
+    that it will be useful, but WITHOUT ANY WARRANTY; without even the
+    implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Diabase H-Series Cross-Platform Wizard.  If not, see
+    <https://www.gnu.org/licenses/>.
+ */
+
 export const StyleSheet = `
     #rootView{
       background-color: #FFFFFF;
@@ -45,6 +65,11 @@ export const StyleSheet = `
     }
     #enterStretchLabel{
       margin-left: 6px;
+      font-size: 16px;
+      qproperty-alignment: AlignCenter;
+    }
+    #enterPreheatLabel{
+      margin-left: 25px;
       font-size: 16px;
       qproperty-alignment: AlignCenter;
     }

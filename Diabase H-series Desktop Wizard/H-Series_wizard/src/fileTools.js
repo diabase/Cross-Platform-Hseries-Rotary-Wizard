@@ -76,12 +76,10 @@ export function outputNewStl(pathString, stretchFactor){
   Displays either a success or failure message after
   */
   export function outputNewGcode(pathString, radius){
-    console.log("cp2");
     const outputMessage = new QMessageBox();
     let correctedPathString = pathString.split('/').join('\\'); // MACOS: let correctedPathString = pathString.split('/').join('/');
     let outputLocation = getOutputLoaction(correctedPathString, 'gcode');
     let isnum = parseFloat(radius.match(/^-?\d*(\.\d+)?$/))>0;
-    console.log("cp3");
     if(pathString != ''){
       if(isnum){
           if(gcodeProcessing.gcodeProcessing(correctedPathString, outputLocation, radius)){
