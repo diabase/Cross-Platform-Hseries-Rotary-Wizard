@@ -29,7 +29,7 @@ Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
 #include <stdint.h>
 #include <fstream>
 
-# define M_PI           3.14159265358979323846
+# define M_PI 3.14159265358979323846
 
 void write_gcode(std::string outFileName,std::string inFileName, double radius);
 std::string scaleY(std::string line, double radius, double currentLayerHeight, double firstLayerHeight);

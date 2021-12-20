@@ -1,11 +1,15 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
 
 module.exports = {
   mode: process.NODE_ENV || "development",
   entry: "./src",
   target: "node",
   output: {
+    hashFunction: "sha256",
     path: path.resolve(__dirname, "dist"),
     filename: "index.js"
   },

@@ -82,8 +82,9 @@ void write_gcode(std::string outFileName,std::string inFileName, double preheatL
   std::string currentLine;
 
   std::string swap_value = "";
-  int [] new_data = [];
+  std::array<std::string, 0> new_data = [];
   bool looking_for_retraction = false, looking_for_extrusion = false, found_extrusion = false, looking_for_swap = false, found_swap = false, first_tool = true;
+
 
 	while (std::getline(inFile, currentLine)) {
 		if (line.find(";Extruder ")!=std::string::npos && isdigit(line.back()))
@@ -92,7 +93,11 @@ void write_gcode(std::string outFileName,std::string inFileName, double preheatL
       looking_for_swap = true;
       if(preheatLines != 0){
         if(!first_tool){
-          
+          if(currentLine >= preheatLines){
+
+          }else{
+
+          }
         }
         first_tool = false;
       }

@@ -31,6 +31,7 @@ import{
 //Takes in the location of a file, and creates a new location path for the output
 const stlProcessing = require('../build/Release/fileProcessing.node');
 const gcodeProcessing = require('../build/Release/gcodeProcessing.node');
+const spawn = require("child_process").spawn;
 
 
 /*Takes in the location of the .stl file, and calls all the required scripts and functions to output a processed
@@ -106,6 +107,33 @@ export function outputNewStl(pathString, stretchFactor){
     outputMessage.exec();
   }
 
+  export function curaPPY(pathString, preHeatLines){
+    console.log("curappy");
+    const outputMessage = new QMessageBox();
+    let correctedPathString = pathString.split('/').join('\\'); // MACOS: let correctedPathString = pathString.split('/').join('/');
+    let outputLocation = getOutputLoaction(correctedPathString, 'gcode');
+    let isnum = parseFloat(preHeatLines.match(/^-?\d*(\.\d+)?$/))>0;
+    console.log("curappy1");
+    if(pathString != ''){
+      if(isnum){
+        const pythonProcess = spawn('python',["./curappy.py", preHeatLines, true, correctedPathString, outputLocation]);
+        pythonProcess.stdout.on('data', (data) => {
+          console.log(data.toString());
+        });
+        outputMessage.setWindowTitle('Success');
+        outputMessage.setText('New .gcode file created at '+outputLocation);
+      }
+      else{
+        outputMessage.setWindowTitle('Error');
+        outputMessage.setText('Please enter a valid pre-heat value.');
+      }
+    }
+    console.log("curappy2");
+    const closeOutputMessage = new QPushButton();
+    closeOutputMessage.setText('Close');
+    outputMessage.addButton(closeOutputMessage, ButtonRole.AcceptRole);
+    outputMessage.exec();
+}
 
 function getOutputLoaction(inputString, type){
   let lastSlash = inputString.lastIndexOf('\\'); //MACOS: let lastSlash = inputString.lastIndexOf('/')
@@ -117,6 +145,10 @@ function getOutputLoaction(inputString, type){
   else if(type == 'gcode'){
     location+= inputString.slice(lastSlash + 1, inputString.length-6);
     location+='_readytoprint.gcode';
+  }
+  else if(type == 'ppy'){
+    location+= inputString.slice(lastSlash + 1, inputString.length-6);
+    location+='_wizard_ppy.gcode';
   }
   return location;
 }

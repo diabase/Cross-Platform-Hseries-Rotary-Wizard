@@ -167,7 +167,7 @@ let backToStl = false;
   // Buttons
   const uploadButtonS3dGcodePage = guiTools.createButton('uploadButton','Upload .gcode File');
   const backButtonS3dGcodePage = guiTools.createButton('buttonRowButton','Back');
-  const processS3dGcodeButton = guiTools.createButton('buttonRowButton','Process Selected Gcode');
+  const gcodePpyButton = guiTools.createButton('buttonRowButton','Process Selected Gcode');
 
   const preHeatInput = new QLineEdit();
   preHeatInput.setObjectName('input');
@@ -183,7 +183,7 @@ let backToStl = false;
   //Root
   [uploadButtonS3dGcodePage,guiTools.createLabel('selectedFile','Selected File:'),selectedS3dGcodeFileName].forEach(widget => uploadRowS3dGcodePageLayout.addWidget(widget));
   [guiTools.createLabel('enterPreheatLabel','Preheat by how many lines:'), preHeatInput].forEach(widget => preheatRowLayout.addWidget(widget));
-  const s3dGcodeButtonRow = [backButtonS3dGcodePage,processS3dGcodeButton];
+  const s3dGcodeButtonRow = [backButtonS3dGcodePage,gcodePpyButton];
   const s3dGcodeHeaderRow = [guiTools.createLabel('instructions',s3dGcodeInstructionsText), uploadRowS3dGcodePage, preheatRow];
 
 // S3d Gcode PAGE WIDGETS END
@@ -303,5 +303,8 @@ let backToStl = false;
     backToStl = false;
   });
 
-
+  gcodePpyButton.addEventListener('clicked', () => {
+    fileTools.curaPPY(String(s3dGcodeFileDialog.selectedFiles()), preHeatInput.text());
+  });
+  
 // APPLICATION LOGIC END
