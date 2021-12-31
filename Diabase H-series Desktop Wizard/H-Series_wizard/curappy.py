@@ -9,7 +9,6 @@ preheatLines = sys.argv[1]
 modifyGcode = sys.argv[2]
 filepath = sys.argv[3]
 newFilePath = sys.argv[4]
-newFile = open(newFilePath,"w") 
 
 def get_number_from_string(string, char_before):
     number_found, number, int_length = False, '', 0
@@ -36,7 +35,6 @@ if modifyGcode:
                     looking_for_retraction = True
                     looking_for_extrusion = True
                     looking_for_swap = True
-                    print("Booleans True on line: " + line)
 
                     if preheatLines != 0:
                         if not first_tool:  # It checks to make sure it is not the first tool.
@@ -107,7 +105,6 @@ if modifyGcode:
 
                 found_extrusion = False
             elif "G1 " in line and looking_for_retraction:  # Remove post-tool-change Retraction
-                print("removing retraction")
                 line = "".join(['; Retraction Line Removed(', line[:-1], ')\n'])
                 looking_for_retraction = False
 
@@ -145,12 +142,7 @@ if modifyGcode:
             if line != "" and line != "\n" and line != " ":  # Adds the edited line back to the data if it is not blank
                 new_data.append(line)
 
-     
-newFile = open(newFilePath,"w")    
-for line in new_data:
-    newFile.write(line)
-    
-newFile.close()
-print("done")
-sys.stdout.flush()
+with open(newFilePath,"w") as newFile:  
+    for line in new_data:
+        newFile.write(line)
 

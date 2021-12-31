@@ -269,7 +269,6 @@ let backToStl = false;
   });
 
   processStlButton.addEventListener('clicked', () => {
-    console.log("cp1");
     canContinue = fileTools.outputNewStl(String(stlFileDialog.selectedFiles()), stretchInput.text());
   });
 

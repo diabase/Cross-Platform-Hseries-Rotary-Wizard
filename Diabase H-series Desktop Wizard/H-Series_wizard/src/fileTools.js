@@ -108,18 +108,13 @@ export function outputNewStl(pathString, stretchFactor){
   }
 
   export function curaPPY(pathString, preHeatLines){
-    console.log("curappy");
     const outputMessage = new QMessageBox();
     let correctedPathString = pathString.split('/').join('\\'); // MACOS: let correctedPathString = pathString.split('/').join('/');
     let outputLocation = getOutputLoaction(correctedPathString, 'gcode');
     let isnum = parseFloat(preHeatLines.match(/^-?\d*(\.\d+)?$/))>0;
-    console.log("curappy1");
     if(pathString != ''){
       if(isnum){
         const pythonProcess = spawn('python',["./curappy.py", preHeatLines, true, correctedPathString, outputLocation]);
-        pythonProcess.stdout.on('data', (data) => {
-          console.log(data.toString());
-        });
         outputMessage.setWindowTitle('Success');
         outputMessage.setText('New .gcode file created at '+outputLocation);
       }
@@ -128,7 +123,6 @@ export function outputNewStl(pathString, stretchFactor){
         outputMessage.setText('Please enter a valid pre-heat value.');
       }
     }
-    console.log("curappy2");
     const closeOutputMessage = new QPushButton();
     closeOutputMessage.setText('Close');
     outputMessage.addButton(closeOutputMessage, ButtonRole.AcceptRole);
