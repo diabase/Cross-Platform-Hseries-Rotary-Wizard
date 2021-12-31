@@ -97,7 +97,7 @@ if modifyGcode:
                     new_data.append(
                         ";LAYER PROCESSING ERROR(editing G1 to G10)")  # Error catching, hopefully will never print
             
-            elif "G1 " in line and found_extrusion:
+            elif "G1 " in line and found_extrusion and "E" in line:
                 zLocation = 0
                 for index in range(len(line)):
                     if line[index] == 'Z':
