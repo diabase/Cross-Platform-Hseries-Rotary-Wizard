@@ -2266,13 +2266,6 @@
   "resolved" "https://registry.npmjs.org/stl-reader/-/stl-reader-3.0.1.tgz"
   "version" "3.0.1"
 
-"stljs@^0.1.5":
-  "integrity" "sha1-RxI4ToxeNfHUIlxwJADtVudvOW8="
-  "resolved" "https://registry.npmjs.org/stljs/-/stljs-0.1.5.tgz"
-  "version" "0.1.5"
-  dependencies:
-    "mustache" "0.7.x"
-
 "streamsearch@0.1.2":
   "integrity" "sha1-gIudDlb8Jz2Am6VzOOkpkZoanxo="
   "resolved" "https://registry.npmjs.org/streamsearch/-/streamsearch-0.1.2.tgz"

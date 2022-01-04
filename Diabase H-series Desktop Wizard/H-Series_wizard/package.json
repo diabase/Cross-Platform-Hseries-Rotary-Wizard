@@ -23,8 +23,7 @@
     "open": "^8.2.0",
     "python-shell": "^3.0.1",
     "qode": "^0.1.0",
-    "stl-reader": "^3.0.1",
-    "stljs": "^0.1.5"
+    "stl-reader": "^3.0.1"
   },
   "devDependencies": {
     "@nodegui/packer": "^1.4.1",
