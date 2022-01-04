@@ -10,6 +10,7 @@ modifyGcode = sys.argv[2]
 filepath = sys.argv[3]
 newFilePath = sys.argv[4]
 
+
 def get_number_from_string(string, char_before):
     number_found, number, int_length = False, '', 0
     for char in string:
@@ -51,7 +52,7 @@ if modifyGcode:
                 found_extrusion = True
             if "M82" in line:
                 line = ''  # This simply deletes all lines containing M82
-            
+
             elif "M109" in line:  # This comments out all lines with M109 commands
                 line = "".join([';', line])
                 if "G10" in new_data[len(new_data) - 1]:
@@ -94,7 +95,7 @@ if modifyGcode:
                 else:
                     new_data.append(
                         ";LAYER PROCESSING ERROR(editing G1 to G10)")  # Error catching, hopefully will never print
-            
+
             elif "G1 " in line and found_extrusion and "E" in line:
                 zLocation = 0
                 for index in range(len(line)):
@@ -107,7 +108,6 @@ if modifyGcode:
             elif "G1 " in line and looking_for_retraction:  # Remove post-tool-change Retraction
                 line = "".join(['; Retraction Line Removed(', line[:-1], ')\n'])
                 looking_for_retraction = False
-
 
             elif (
                     looking_for_swap or found_swap) and " X" in line and " Y" in line and " Z" in line:  # Catches case where no swap is needed
@@ -142,7 +142,6 @@ if modifyGcode:
             if line != "" and line != "\n" and line != " ":  # Adds the edited line back to the data if it is not blank
                 new_data.append(line)
 
-with open(newFilePath,"w") as newFile:  
+with open(newFilePath, "w") as newFile:
     for line in new_data:
         newFile.write(line)
-
