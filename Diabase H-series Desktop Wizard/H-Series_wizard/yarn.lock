@@ -1645,9 +1645,9 @@
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
   "version" "2.1.2"
 
-"mustache@0.7.x":
+"mustache@^2.2.1":
   "integrity" "sha1-JI1o0LEFA5eEj6Y0wkRsGPMEkOk="
-  "resolved" "https://registry.npmjs.org/mustache/-/mustache-0.7.3.tgz"
+  "resolved" "https://registry.npmjs.org/mustache/-/mustache-2.2.1.tgz"
   "version" "0.7.3"
 
 "nan@^2.14.2":
