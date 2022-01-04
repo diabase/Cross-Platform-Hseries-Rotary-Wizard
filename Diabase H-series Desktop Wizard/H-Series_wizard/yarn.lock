@@ -1648,7 +1648,7 @@
 "mustache@^2.2.1":
   "integrity" "sha1-JI1o0LEFA5eEj6Y0wkRsGPMEkOk="
   "resolved" "https://registry.npmjs.org/mustache/-/mustache-2.2.1.tgz"
-  "version" "0.7.3"
+  "version" "2.2.1"
 
 "nan@^2.14.2":
   "integrity" "sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ=="
