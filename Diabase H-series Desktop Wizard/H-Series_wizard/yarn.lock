@@ -2094,7 +2094,7 @@
   "version" "1.20.0"
   dependencies:
     "is-core-module" "^2.2.0"
-    "path-parse" "^1.0.6"
+    "path-parse" "^1.0.7"
 
 "retry@^0.12.0":
   "integrity" "sha1-G0KmJmoh8HQh0bC1S33BZ7AcATs="
