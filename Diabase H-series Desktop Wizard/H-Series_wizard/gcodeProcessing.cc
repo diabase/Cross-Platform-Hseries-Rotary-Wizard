@@ -181,10 +181,10 @@ std::string scaleY(std::string line, double radius, double currentLayerHeight, d
             ss << number;
             std::string s(ss.str());
             if (Negflag) {
-              output = output.substr(0, i - num.length() - 2) + "A-" + s + output.substr(i, output.length());
+              output = output.substr(0, i - num.length() - 2) + "A" + s + output.substr(i, output.length());
               Negflag = false;
             } else {
-              output = output.substr(0, i - num.length() - 1) + "A" + s + output.substr(i, output.length());
+              output = output.substr(0, i - num.length() - 1) + "A-" + s + output.substr(i, output.length());
             }
           }
         }
