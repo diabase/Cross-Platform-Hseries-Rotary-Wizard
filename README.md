@@ -58,12 +58,12 @@ Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release.
 ## Windows vs macOS
 Although both the Windows and macOS builds are available to download, the source code in the repository is for the Windows version. They are extremely similar, and for anyone looking for the MacOS source code, only minor changes are required. First, the binding.gyp file has changes to include acceptable versions of macOS. There is a text file in the repository titled "Binding.gyp for MacOS" that reflects these changes. On line 133 of gcodeprocessing.cc, it is helpful to remove the new line that gets added as it is un-necessary in macOS. The only other changes are a few lines in index.js that have to do with file path differences between operating systems. In Windows, a "\" is used, and macOS uses a "/". These can be found on lines 294, 295, 313, and 350. After each of these lines is a comment including the changes for macOS. 
 
-[RotaryGif]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/rotaryPrinting.gif
-[RotaryImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/Rotary.webp
-[UnwrappingImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/UnwrappingImage.PNG
-[UploadSTL]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/UploadSTL.PNG
-[ProcessStl]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/ProcessSTL.PNG
-[STLPage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/STLButton.PNG
-[GcodePage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/GCODEButton.PNG
-[UploadGcode]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/GcodeUpload.PNG
-[ProcessGcode]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/main/ReadMeImages/GcodeProcess.PNG
+[RotaryGif]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/rotaryPrinting.gif
+[RotaryImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/Rotary.webp
+[UnwrappingImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/UnwrappingImage.PNG
+[UploadSTL]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/UploadSTL.PNG
+[ProcessStl]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/ProcessSTL.PNG
+[STLPage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/STLButton.PNG
+[GcodePage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/GCODEButton.PNG
+[UploadGcode]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/GcodeUpload.PNG
+[ProcessGcode]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/GcodeProcess.PNG
