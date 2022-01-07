@@ -2,17 +2,14 @@
 Diabase H-Series Cross-Platform Wizard
 Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
     This file is part of Diabase H-Series Cross-Platform Wizard.
-
     Diabase H-Series Cross-Platform Wizard is free software: you can 
     redistribute it and/or modify it under the terms of the GNU Affero
     General Public License as published by the Free Software Foundation,
     either version 3 of the License, or (at your option) any later version.
-
     Diabase H-Series Cross-Platform Wizard is distributed in the hope 
     that it will be useful, but WITHOUT ANY WARRANTY; without even the
     implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     See the GNU Affero General Public License for more details.
-
     You should have received a copy of the GNU Affero General Public License
     along with Diabase H-Series Cross-Platform Wizard.  If not, see
     <https://www.gnu.org/licenses/>.
@@ -38,11 +35,12 @@ Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
 #include "stl_reader.h"
 
 #include <fstream>
+const bool print = false;
 
 //Prototype
 void write_stl(std::string filename, std::vector < unsigned int > tris, std::vector < float > coords, double stretch);
 void rotaryTransform(float * p, double stretch);
-void editGcode(std::string inFileName, std::string outFileName, double radius);
+void editGcode(std::string infileName, std::string outfileName, double radius);
 
 /* This is the stl processing method. It gets called with:
 const addon = require('../build/Release/fileProcessing.node');
@@ -67,9 +65,9 @@ void Add(const Nan::FunctionCallbackInfo < v8::Value > & info) {
 
   try {
     std::string extraExtension;
-    stl_reader::ReadStlFile(inFilename.c_str(), coords, normals, tris, solids);
-    transForm(coords, normals, tris, stretch);
-    write_stl(outFilename, coords, normals, tris);
+    stl_reader::ReadStlFile(infilename.c_str(), coords, normals, tris, solids);
+    rotaryTransform(coords, normals, tris, stretch);
+    write_stl(outfilename, coords, normals, tris);
     info.GetReturnValue().Set(true);
   } catch (std::exception & e) {
     std::cout << e.what() << std::endl;
@@ -124,7 +122,7 @@ void write_stl(std::string filename, std::vector < float > coords, std::vector <
   myfile.close();
 }
 
-void rotaryTransForm(std::vector < float > & coords, std::vector < float > & normals, std::vector < size_t > & tris,
+void rotaryTransform(std::vector < float > & coords, std::vector < float > & normals, std::vector < size_t > & tris,
   const double stretch) {
   if (true) {
     const size_t numVert = coords.size() / 3;
