@@ -38,11 +38,12 @@ Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
 #include "stl_reader.h"
 
 #include <fstream>
+const bool print = false;
 
 //Prototype
-void write_stl(std::string filename, std::vector < unsigned int > tris, std::vector < float > coords, double stretch);
-void rotaryTransform(float * p, double stretch);
-void editGcode(std::string inFileName, std::string outFileName, double radius);
+void write_stl(std::string filename, std::vector < float > coords, std::vector < float > normals, std::vector < unsigned int > tris);
+void rotaryTransForm(std::vector < float > & coords, std::vector < float > & normals, std::vector <unsigned int> & tris, const double stretch);
+void editGcode(std::string infilename, std::string outfilename, double radius);
 
 /* This is the stl processing method. It gets called with:
 const addon = require('../build/Release/fileProcessing.node');
@@ -62,14 +63,13 @@ void Add(const Nan::FunctionCallbackInfo < v8::Value > & info) {
   v8::String::Utf8Value utf8Outfilename(isolate, info[1]);
   std::string outfilename( * utf8Outfilename);
   int stretch = info[2] -> NumberValue(context).FromJust();
-  std::vector < float > coords, normals;
-  std::vector < unsigned int > tris, solids;
+  std::vector <float> coords, normals;
+  std::vector<unsigned int> tris, solids;
 
   try {
-    std::string extraExtension;
-    stl_reader::ReadStlFile(inFilename.c_str(), coords, normals, tris, solids);
-    transForm(coords, normals, tris, stretch);
-    write_stl(outFilename, coords, normals, tris);
+    stl_reader::ReadStlFile(infilename.c_str(), coords, normals, tris, solids);
+    rotaryTransForm(coords, normals, tris, stretch);
+    write_stl(outfilename, coords, normals, tris);
     info.GetReturnValue().Set(true);
   } catch (std::exception & e) {
     std::cout << e.what() << std::endl;
@@ -124,8 +124,7 @@ void write_stl(std::string filename, std::vector < float > coords, std::vector <
   myfile.close();
 }
 
-void rotaryTransForm(std::vector < float > & coords, std::vector < float > & normals, std::vector < size_t > & tris,
-  const double stretch) {
+void rotaryTransForm(std::vector<float> &coords, std::vector<float> &normals, std::vector<unsigned int> &tris, const double stretch) {
   if (true) {
     const size_t numVert = coords.size() / 3;
     // first transform all the vertexes to the unrapped state
@@ -191,8 +190,8 @@ void Init(v8::Local < v8::Object > exports) {
   v8::Local < v8::Context > context = exports -> CreationContext();
   exports -> Set(context,
     Nan::New("processSTL").ToLocalChecked(),
-    Nan::New < v8::FunctionTemplate > (Add) -
-    > GetFunction(context)
+    Nan::New < v8::FunctionTemplate > (Add)
+    -> GetFunction(context)
     .ToLocalChecked());
 }
 
