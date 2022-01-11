@@ -41,7 +41,7 @@ Instructions:
 ### Windows
 Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release. Navigate insode the unzipped folder, and locate qode.exe. This is the application excecutable, and running this will open the wizard. 
 ### macOS
-1: Download "DiabaseHseriesMacWizard.app.zip" from the latest release. When you open the application, you may get a popup window stating that the application can not be opened because the developer can not be verified. If this is the case, proceed to step two.
+1: Download "DiabaseHseriesMacWizard.app.zip" from the latest release. When you open the application, you may get a popup window stating that the application can not be opened because the developer can not be verified. If this is the case, proceed to step two. If this does not happen, the app is ready.
 
 2: A change in security settings will be needed. On the popup, locate and press the question mark icon on the top right.
 
@@ -55,6 +55,10 @@ Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release.
 
 7: The app should launch. From here, go back to the settings tab, and press the unlocked padlock. It should lock, saving your selection. This should allow continued use of the app with no issue. 
 
+## Building From Source
+1: Clone the repository, and open in VScode
+
+2: Run > npm install
 ## Windows vs macOS
 Although both the Windows and macOS builds are available to download, the source code in the repository is for the Windows version. They are extremely similar, and for anyone looking for the MacOS source code, only minor changes are required. First, the binding.gyp file has changes to include acceptable versions of macOS. There is a text file in the repository titled "Binding.gyp for MacOS" that reflects these changes. On line 133 of gcodeprocessing.cc, it is helpful to remove the new line that gets added as it is un-necessary in macOS. The only other changes are a few lines in index.js that have to do with file path differences between operating systems. In Windows, a "\" is used, and macOS uses a "/". These can be found on lines 294, 295, 313, and 350. After each of these lines is a comment including the changes for macOS. 
 
