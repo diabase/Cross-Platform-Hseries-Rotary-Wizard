@@ -20,6 +20,10 @@ Copyright (c) 2021. Nick Colleran, Diabase Engineering, LLC
 #define _CRT_SECURE_NO_WARNINGS
 #define _USE_MATH_DEFINES
 
+//Change currentOS to the desired buildOS
+enum OS { windowsAndLinux, macOS };
+OS currentOS = windowsAndLinux;
+
 #include <cmath>
 
 #include <iostream>
@@ -136,7 +140,10 @@ void write_gcode(std::string outFileName, std::string inFileName, double radius)
       } else if (currentLine.find("; layer ") != std::string::npos) { //For each layer change after the initial layer, add the uniform layer height to the current z height
         currentLayerHeight += mainLayerHeight;
       }
-      outFile << scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight) << "\n"; // MACOS: outFile<<scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight);
+      switch(currentOS){
+        case windowsAndLinux: outFile << scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight) << "\n";   break;
+        case macOS: outFile<<scaleY(currentLine, radius, currentLayerHeight, firstLayerHeight); break;
+      }
     }
   }
   outFile << ";File Complete\n";

@@ -33,9 +33,24 @@ const { spawn } = require('child_process');
 const stlProcessing = require('../build/Release/fileProcessing.node');
 const gcodeProcessing = require('../build/Release/gcodeProcessing.node');
 
+// Change currentOS to the desired buildOS
+const OS = {
+  WindowsAndLinux: 'windows',
+  MacOS: 'mac',
+};
+const currentOS = OS.WindowsAndLinux;
+
 function getOutputLoaction(inputString, type) {
-  const lastSlash = inputString.lastIndexOf('\\'); // MACOS: let lastSlash = inputString.lastIndexOf('/')
-  let location = `${inputString.slice(0, lastSlash)}\\`; // MACOS: let location = inputString.slice(0, lastSlash) + '/';
+  let lastSlash;
+  let location;
+
+  if (currentOS === OS.WindowsAndLinux) {
+    lastSlash = inputString.lastIndexOf('\\');
+    location = `${inputString.slice(0, lastSlash)}\\`;
+  } else if (currentOS === OS.MacOS) {
+    lastSlash = inputString.lastIndexOf('/');
+    location = `${inputString.slice(0, lastSlash)}/`;
+  }
   if (type === 'stl') {
     location += inputString.slice(lastSlash + 1, inputString.length - 4);
     location += '_unwrapped.stl';
@@ -56,7 +71,12 @@ function getOutputLoaction(inputString, type) {
   */
 export function outputNewStl(pathString, stretchFactor) {
   const outputMessage = new QMessageBox();
-  const correctedPathString = pathString.split('/').join('\\'); // MACOS let correctedPathString = pathString.split('/').join('/');
+  let correctedPathString;
+  if (currentOS === OS.WindowsAndLinux) {
+    correctedPathString = pathString.split('/').join('\\');
+  } else if (currentOS === OS.MacOS) {
+    correctedPathString = pathString.split('/').join('/');
+  }
   const outputLocation = getOutputLoaction(correctedPathString, 'stl');
   const isnum = /^\d+$/.test(stretchFactor);
   let canContinue = false;
@@ -92,7 +112,12 @@ export function outputNewStl(pathString, stretchFactor) {
   */
 export function outputNewGcode(pathString, radius) {
   const outputMessage = new QMessageBox();
-  const correctedPathString = pathString.split('/').join('\\'); // MACOS: let correctedPathString = pathString.split('/').join('/');
+  let correctedPathString;
+  if (currentOS === OS.WindowsAndLinux) {
+    correctedPathString = pathString.split('/').join('\\');
+  } else if (currentOS === OS.MacOS) {
+    correctedPathString = pathString.split('/').join('/');
+  }
   const outputLocation = getOutputLoaction(correctedPathString, 'gcode');
   const isnum = parseFloat(radius.match(/^-?\d*(\.\d+)?$/)) > 0;
   if (pathString !== '') {
@@ -120,7 +145,12 @@ export function outputNewGcode(pathString, radius) {
 
 export function curaPPY(pathString, preHeatLines) {
   const outputMessage = new QMessageBox();
-  const correctedPathString = pathString.split('/').join('\\'); // MACOS: let correctedPathString = pathString.split('/').join('/');
+  let correctedPathString;
+  if (currentOS === OS.WindowsAndLinux) {
+    correctedPathString = pathString.split('/').join('\\');
+  } else if (currentOS === OS.MacOS) {
+    correctedPathString = pathString.split('/').join('/');
+  }
   const outputLocation = getOutputLoaction(correctedPathString, 'gcode');
   const isnum = parseFloat(preHeatLines.match(/^-?\d*(\.\d+)?$/)) > 0;
   if (pathString !== '') {
