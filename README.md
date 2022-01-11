@@ -51,16 +51,27 @@ Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release.
 
 5: Locate the text that says the app was blocked because of an unidentified developer. Click the button next to it that says "Open Anyway".
 
-6: On the resulting prompt, press "Open"
+6: On the resulting prompt, press "Open".
 
 7: The app should launch. From here, go back to the settings tab, and press the unlocked padlock. It should lock, saving your selection. This should allow continued use of the app with no issue. 
 
 ## Building From Source
-1: Clone the repository, and open in VScode
+1: Clone the repository, and open in VScode.
 
-2: Run > npm install
-## Windows vs macOS
-Although both the Windows and macOS builds are available to download, the source code in the repository is for the Windows version. They are extremely similar, and for anyone looking for the MacOS source code, only minor changes are required. First, the binding.gyp file has changes to include acceptable versions of macOS. There is a text file in the repository titled "Binding.gyp for MacOS" that reflects these changes. On line 133 of gcodeprocessing.cc, it is helpful to remove the new line that gets added as it is un-necessary in macOS. The only other changes are a few lines in index.js that have to do with file path differences between operating systems. In Windows, a "\" is used, and macOS uses a "/". These can be found on lines 294, 295, 313, and 350. After each of these lines is a comment including the changes for macOS. 
+2: Prepparing to build on your operating system: Open the files "H-Series_wizard\src\fileTools.js", and "H-Series_wizard\gcodeProcessing.cc". Near the top of each, you will find a value "currentOS" being assigned(line 41 in fileTools and line 25 is gcodeProcessing). Make sure each of these is being set to your proper OS. The available options are isted right above the delcaration. If you are building on Mac, the binding.gyp file has required changes to include acceptable versions of macOS. There is a text file in the repository titled "Binding.gyp for MacOS" that reflects these changes. To build on Mac, delete the contents of "Binding.gyp", and replace them with the contents of "Binding.gyp for MacOS". 
+
+3: Open a terminal, and run "npm install" inside the "H-Series_wizard" directory.
+
+4: Run "node-gyp rebuild" To generate the build folder.
+
+5: Once that has competed, run "npx nodegui-packer --init MyAppName" with MyAppName representing what you would like to call the build.
+
+6: Run "npm run build" to build the project.
+
+7: Run "npx nodegui-packer --pack ./dist". This will package a production build, and print the location of the build to your terminal. By default, the app executable is "qode.exe".
+
+More information on packaging nodegui projects can be found at https://docs.nodegui.org/docs/guides/packaging/
+
 
 [RotaryGif]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/rotaryPrinting.gif
 [RotaryImage]: https://github.com/diabase/Cross-Platform-Hseries-Rotary-Wizard/blob/Expanded-Functionality/ReadMeImages/Rotary.webp
