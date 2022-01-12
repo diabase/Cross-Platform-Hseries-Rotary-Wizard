@@ -52,6 +52,7 @@ addon.gcodeProcessing(PathOfOriginalGcode, PathOfOutputLocation, Radius)
 */
 void Add(const Nan::FunctionCallbackInfo < v8::Value > & info) {
   v8::Local < v8::Context > context = info.GetIsolate() -> GetCurrentContext();
+  std::cout << "\nGcode processing started\n";
 
   if (info.Length() != 3) {
     Nan::ThrowTypeError("Required parameters: InFileName, OutFileName, radius");
@@ -64,6 +65,10 @@ void Add(const Nan::FunctionCallbackInfo < v8::Value > & info) {
   v8::String::Utf8Value utf8Outfilename(isolate, info[1]);
   std::string outfilename( * utf8Outfilename);
   double radius = info[2] -> NumberValue(context).FromJust();
+  std::cout << "\nHere is the info the script found. Make sure it is all correct:";
+  std::cout << "\nRadius: " << radius;
+  std::cout << "\nIn File: " << infilename;
+  std::cout << "\nOut File: " << outfilename;
 
   try {
     write_gcode(outfilename, infilename, radius);
@@ -147,6 +152,7 @@ void write_gcode(std::string outFileName, std::string inFileName, double radius)
     }
   }
   outFile << ";File Complete\n";
+  std::cout << "\nGcode file writing complete.";
 
   outFile.close();
   inFile.close();
