@@ -62,6 +62,8 @@ Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release.
 
 3: Open a terminal, and run "npm install" inside the "H-Series_wizard" directory.
 
+3a: If You are making any changes to the c++ code, you will need to run "node-gyp rebuild". Do not do this unless you have made changes.
+
 4: Once that has competed, run "npx nodegui-packer --init MyAppName" with MyAppName representing what you would like to call the build.
 
 5: Run "npm run build" to build the project.
