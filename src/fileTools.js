@@ -30,6 +30,7 @@ import {
   */
 // Takes in the location of a file, and creates a new location path for the output
 const { spawn } = require('child_process');
+const { PythonShell } = require('python-shell');
 const stlProcessing = require('../build/Release/fileProcessing.node');
 const gcodeProcessing = require('../build/Release/gcodeProcessing.node');
 
@@ -151,8 +152,18 @@ export function curaPPY(pathString, preHeatLines) {
   } else if (currentOS === OS.MacOS) {
     correctedPathString = pathString.split('/').join('/');
   }
-  const outputLocation = getOutputLoaction(correctedPathString, 'gcode');
+  const outputLocation = getOutputLoaction(correctedPathString, 'ppy');
   const isnum = parseFloat(preHeatLines.match(/^-?\d*(\.\d+)?$/)) > 0;
+  PythonShell.runString('f = open("./demofile2.txt", "a")', null, (err) => {
+    if (err) {
+      // eslint-disable-next-line no-console
+      console.log('error');
+      throw err;
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('finished');
+    }
+  });
   if (pathString !== '') {
     if (isnum) {
       spawn('python', ['./curappy.py', preHeatLines, true, correctedPathString, outputLocation]);
