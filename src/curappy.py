@@ -80,6 +80,12 @@ if modifyGcode:
 
                 line = "".join(["G10 P", str(int(m104_t_number_values[0]) + 1), " S", m104_s_number_values[
                     0], " R", str(int(m104_s_number_values[0]) - 50)])
+            
+            elif "M104 S" in line:
+                after_S = int(get_number_from_string(line, 'S')[0])
+                after_R = after_S - 50
+                if last_T != -1:
+                    line = "G10 P" + str(last_T) + " S" + str(after_S) + " R" + str(after_R)
 
             elif 'T' in line:  # All remaining lines with T# will be removed completely.
                 for i in range(0, len(line) - 1):
@@ -132,11 +138,6 @@ if modifyGcode:
                 swap_value = ''
                 found_swap = False
 
-            elif "M104 S" in line:
-                after_S = int(get_number_from_string(line, 'S')[0])
-                after_R = after_S - 50
-                if last_T != -1:
-                    line = "G10 P" + str(last_T) + " S" + str(after_S) + " R" + str(after_R)
             if '\n' not in line:
                 line += '\n'
             if line != "" and line != "\n" and line != " ":  # Adds the edited line back to the data if it is not blank
