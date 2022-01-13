@@ -70,6 +70,10 @@ Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release.
 
 7: Run "npx nodegui-packer --pack ./dist". This will package a production build, and print the location of the build to your terminal. By default, the app executable is "qode.exe".
 
+8: Locate "curappy.py" in "H-Series_wizard\src\". Relocate this to "Cross-Platform-Hseries-Rotary-Wizard\deploy\win32\build\H-Series-Wizard". The new location should be "Cross-Platform-Hseries-Rotary-Wizard\deploy\win32\build\H-Series-Wizard\curappy.py". 
+
+9: Launching "qode.exe" Will now launch the application with full functionality. 
+
 More information on packaging nodegui projects can be found at https://docs.nodegui.org/docs/guides/packaging/
 
 
