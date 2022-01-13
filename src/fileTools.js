@@ -154,16 +154,6 @@ export function curaPPY(pathString, preHeatLines) {
   }
   const outputLocation = getOutputLoaction(correctedPathString, 'ppy');
   const isnum = parseFloat(preHeatLines.match(/^-?\d*(\.\d+)?$/)) > 0;
-  PythonShell.runString('f = open("./demofile2.txt", "a")', null, (err) => {
-    if (err) {
-      // eslint-disable-next-line no-console
-      console.log('error');
-      throw err;
-    } else {
-      // eslint-disable-next-line no-console
-      console.log('finished');
-    }
-  });
   if (pathString !== '') {
     if (isnum) {
       spawn('python', ['./curappy.py', preHeatLines, true, correctedPathString, outputLocation]);

@@ -50,10 +50,7 @@ if modifyGcode:
             if ";TYPE" in line and looking_for_extrusion:  # Once ";TYPE" is found, this sets a flag variable to true, indicating that we are looking to turn a G1 into a G11
                 looking_for_extrusion = False
                 found_extrusion = True
-                
-            if";" in line:
-                line = line
-                
+            
             elif "M82" in line:
                 line = ''  # This simply deletes all lines containing M82
 
@@ -86,6 +83,7 @@ if modifyGcode:
                     0], " R", str(int(m104_s_number_values[0]) - 50)])
             
             elif "M104 S" in line:
+                print("M104 S")
                 after_S = int(get_number_from_string(line, 'S')[0])
                 after_R = after_S - 50
                 if last_T != -1:
