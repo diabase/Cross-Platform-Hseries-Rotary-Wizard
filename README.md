@@ -62,13 +62,17 @@ Download and unzip "Diabase_Desktop_Wizard_Windows.zip" from the latest release.
 
 3: Open a terminal, and run "npm install" inside the "H-Series_wizard" directory.
 
-4: Run "node-gyp rebuild" To generate the build folder.
+3a: If You are making any changes to the c++ code, you will need to run "node-gyp rebuild". Do not do this unless you have made changes.
 
-5: Once that has competed, run "npx nodegui-packer --init MyAppName" with MyAppName representing what you would like to call the build.
+4: Once that has competed, run "npx nodegui-packer --init MyAppName" with MyAppName representing what you would like to call the build.
 
-6: Run "npm run build" to build the project.
+5: Run "npm run build" to build the project.
 
-7: Run "npx nodegui-packer --pack ./dist". This will package a production build, and print the location of the build to your terminal. By default, the app executable is "qode.exe".
+6: Run "npx nodegui-packer --pack ./dist". This will package a production build, and print the location of the build to your terminal. By default, the app executable is "qode.exe".
+
+7: Locate "curappy.py" in "H-Series_wizard\src\". Relocate this to "Cross-Platform-Hseries-Rotary-Wizard\deploy\win32\build\H-Series-Wizard". The new location should be "Cross-Platform-Hseries-Rotary-Wizard\deploy\win32\build\H-Series-Wizard\curappy.py". 
+
+8: Launching "qode.exe" Will now launch the application with full functionality. 
 
 More information on packaging nodegui projects can be found at https://docs.nodegui.org/docs/guides/packaging/
 
