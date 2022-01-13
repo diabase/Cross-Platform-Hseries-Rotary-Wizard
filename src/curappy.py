@@ -50,7 +50,11 @@ if modifyGcode:
             if ";TYPE" in line and looking_for_extrusion:  # Once ";TYPE" is found, this sets a flag variable to true, indicating that we are looking to turn a G1 into a G11
                 looking_for_extrusion = False
                 found_extrusion = True
-            if "M82" in line:
+                
+            if";" in line:
+                line = line
+                
+            elif "M82" in line:
                 line = ''  # This simply deletes all lines containing M82
 
             elif "M109" in line:  # This comments out all lines with M109 commands
